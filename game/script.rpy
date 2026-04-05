@@ -4,18 +4,18 @@ define a = Character('Алексей Калиниченко', color="#559d0d")
 define d = Character('Даниил Перекосов', color="#1c3ace")
 define k = Character('Константин Горшков', color="#e4e815")
 
-define p1 = Character("Иван Писарев", color="#db4010")
-define p2 = Character("Алексей Калиниченко", color="#559d0d")
-define p3 = Character("Даниил Перекосов", color="#1c3ace")
-define p4 = Character("Константин Горшков", color="#e4e815")
-define p5 = Character("Марина Лебедева", color="#ff8a65")
-define p6 = Character("Егор Сафронов", color="#8bc34a")
-define p7 = Character("Света Орлова", color="#4fc3f7")
-define p8 = Character("Роман Власов", color="#ba68c8")
-define p9 = Character("Нина Белова", color="#f06292")
-define p10 = Character("Тимур Давыдов", color="#ffb74d")
-define p11 = Character("Оля Жукова", color="#81c784")
-define p12 = Character("Максим Громов", color="#90a4ae")
+define p1 = Character("Лычков Игорь Игоревич", color="#dddddd")
+define p2 = Character("Недашковский Вячеслав Михайлович", color="#dddddd")
+define p3 = Character("Семенцов Станислав Григорьевич", color="#dddddd")
+define p5 = Character("Адамова Арина Александровна", color="#dddddd")
+define p7 = Character("Кадырбаева Анастасия Рустемовна", color="#dddddd")
+define p6 = Character("Бабкин Павел Сергеевич", color="#dddddd")
+define p4 = Character("Брызгалов Владимир Григорьевич", color="#dddddd")
+define p8 = Character("Бянкин Валерий Михайлович", color="#dddddd")
+define p9 = Character("Тихомирова Елизавета Алексеевна", color="#dddddd")
+define p10 = Character("Левиев Дмитрий Олегович", color="#dddddd")
+define p11 = Character("Хорькова Нина Григорьевна", color="#dddddd")
+define p12 = Character("Фёдоров Сергей Владимирович", color="#dddddd")
 
 default room_exit_counter = 0
 default visited_cabinets = []
@@ -43,7 +43,7 @@ init python:
             "story_scene_11",
             "story_scene_12",
         ]
-        renpy.random.shuffle(scene_labels)
+        # renpy.random.shuffle(scene_labels) пока закометим для отладки
         store.cabinet_scene_map = dict(zip(cabinets, scene_labels))
 
 label start:
@@ -69,8 +69,8 @@ label base_room:
     scene bg room
     $ ui_unlocked = True
     $ ensure_cabinet_scene_map()
-    e "Комната"
-    $ renpy.pause()
+    "Нужно открыть карту и двигаться дальше"
+    $ renpy.pause(0)
     jump base_room
 
 label scene_reset:
@@ -87,45 +87,46 @@ label finish_cabinet_scene:
     $ room_exit_counter += 1
     jump base_room
 
+# История Лычкова
 label story_scene_1:
     scene bg room
     call scene_reset
-    show i normal at Position(xpos=0.20, ypos=1.0)
+    show lichkov normal
     p1 "Я все еще не верю, что мы действительно дошли до этого дня."
-    show i normal at Position(xpos=0.34, ypos=1.0)
-    p1 "Кажется, за каждой дверью здесь лежит отдельная история."
     jump finish_cabinet_scene
 
+# История Недаша
 label story_scene_2:
     scene bg room
     call scene_reset
-    show a normal at Position(xpos=0.72, ypos=1.0)
+    show nedash elder
     p2 "Если честно, я зашел сюда просто перевести дух."
-    show a normal at Position(xpos=0.58, ypos=1.0)
     p2 "Но теперь уже хочется понять, кто еще бродит по этому этажу."
     jump finish_cabinet_scene
 
+# История Семенцова
 label story_scene_3:
     scene bg room
     call scene_reset
-    show d normal at Position(xpos=0.48, ypos=1.0)
+    show semens cyborg
     p3 "Тишина в корпусе какая-то слишком подозрительная."
-    show d normal at Position(xpos=0.44, ypos=1.0)
     p3 "Такое чувство, будто здание ждет, когда мы сделаем следующий шаг."
     jump finish_cabinet_scene
 
+# История Брызгалова
 label story_scene_4:
     scene bg room
     call scene_reset
-    show k normal at Position(xpos=0.82, ypos=1.0)
+    show brizg normal
     p4 "Я бы не называл это обычной прогулкой после защиты."
-    show k normal at Position(xpos=0.70, ypos=1.0)
     p4 "У этого вечера явно есть свой сценарий."
     jump finish_cabinet_scene
 
+# История Адамовой
 label story_scene_5:
     scene bg room
     call scene_reset
+    show adamova normal
     p5 "Я оставила в одном из кабинетов записку, но уже не помню в каком."
     p5 "Если найдешь ее, не читай вслух, договорились?"
     jump finish_cabinet_scene
