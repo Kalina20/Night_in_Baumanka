@@ -1776,6 +1776,6 @@ screen story_map():
         textbutton "Закрыть карту":
             xalign 0.5
             yalign 1.0
-            yoffset -12
+            yoffset -750
             action Hide("story_map")
 

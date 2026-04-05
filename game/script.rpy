@@ -8,12 +8,12 @@ define p1 = Character("Лычков Игорь Игоревич", color="#dddddd
 define p2 = Character("Недашковский Вячеслав Михайлович", color="#dddddd")
 define p3 = Character("Семенцов Станислав Григорьевич", color="#dddddd")
 define p5 = Character("Адамова Арина Александровна", color="#dddddd")
-define p7 = Character("Кадырбаева Анастасия Рустемовна", color="#dddddd")
+define p10 = Character("Кадырбаева Анастасия Рустемовна", color="#dddddd")
 define p6 = Character("Бабкин Павел Сергеевич", color="#dddddd")
 define p4 = Character("Брызгалов Владимир Григорьевич", color="#dddddd")
 define p8 = Character("Бянкин Валерий Михайлович", color="#dddddd")
 define p9 = Character("Тихомирова Елизавета Алексеевна", color="#dddddd")
-define p10 = Character("Левиев Дмитрий Олегович", color="#dddddd")
+define p7 = Character("Левиев Дмитрий Олегович", color="#dddddd")
 define p11 = Character("Хорькова Нина Григорьевна", color="#dddddd")
 define p12 = Character("Фёдоров Сергей Владимирович", color="#dddddd")
 
@@ -87,7 +87,7 @@ label finish_cabinet_scene:
     $ room_exit_counter += 1
     jump base_room
 
-# История Лычкова
+# История Лычкова (поздравляет с успешной защитой)
 label story_scene_1:
     scene bg room
     call scene_reset
@@ -95,7 +95,7 @@ label story_scene_1:
     p1 "Я все еще не верю, что мы действительно дошли до этого дня."
     jump finish_cabinet_scene
 
-# История Недаша
+# История Недаша (отмечает 200 летие)
 label story_scene_2:
     scene bg room
     call scene_reset
@@ -104,7 +104,7 @@ label story_scene_2:
     p2 "Но теперь уже хочется понять, кто еще бродит по этому этажу."
     jump finish_cabinet_scene
 
-# История Семенцова
+# История Семенцова (чинит проводку)
 label story_scene_3:
     scene bg room
     call scene_reset
@@ -113,7 +113,7 @@ label story_scene_3:
     p3 "Такое чувство, будто здание ждет, когда мы сделаем следующий шаг."
     jump finish_cabinet_scene
 
-# История Брызгалова
+# История Брызгалова (качается)
 label story_scene_4:
     scene bg room
     call scene_reset
@@ -122,7 +122,7 @@ label story_scene_4:
     p4 "У этого вечера явно есть свой сценарий."
     jump finish_cabinet_scene
 
-# История Адамовой
+# История Адамовой (желает доминировать)
 label story_scene_5:
     scene bg room
     call scene_reset
@@ -131,37 +131,52 @@ label story_scene_5:
     p5 "Если найдешь ее, не читай вслух, договорились?"
     jump finish_cabinet_scene
 
+# История Бабкина (не может стереть с доски "бабкин пидарас")
 label story_scene_6:
     scene bg room
     call scene_reset
+    show babkin normal
     p6 "На этом этаже слишком хорошо слышны шаги."
     p6 "Иногда кажется, что за нами кто-то идет на полсекунды позже."
     jump finish_cabinet_scene
 
+# История Левиева (хочет кушать)
 label story_scene_7:
     scene bg room
     call scene_reset
+    show leviev normal
     p7 "Я всегда думала, что ночью универ выглядит романтичнее."
     p7 "Оказалось, ночью он выглядит так, будто знает о нас лишнее."
     jump finish_cabinet_scene
 
+# История Бянкина (синетзирует элемент)
 label story_scene_8:
     scene bg room
     call scene_reset
+    show byankin normal
     p8 "Если открыть все кабинеты подряд, мы точно соберем полную картину."
     p8 "Главное, чтобы картина потом не собрала нас."
+    show byankin happy
+    p8 "Хотя, с другой стороны, если мы уже здесь, то может быть"
     jump finish_cabinet_scene
 
+# История Тихомировой
 label story_scene_9:
     scene bg room
     call scene_reset
+    show tishka normal:
+        zoom 0.9
+        xalign 0.5
+        yalign 0.5
     p9 "Я запомнила этот коридор еще с первого курса."
     p9 "Только тогда он казался бесконечным, а сейчас замкнутым."
     jump finish_cabinet_scene
 
+# История Кадырбаевой
 label story_scene_10:
     scene bg room
     call scene_reset
+    show kadira normal
     p10 "Хочешь совет? Не заходи в кабинет, если тебе уже не по себе."
     p10 "Обычно интуиция ошибается реже, чем расписание."
     jump finish_cabinet_scene
