@@ -1,4 +1,9 @@
-﻿define e = Character('я', color="#c8ffc8")
+﻿define e = Character('я', color="#ffffff")
+define i = Character('Иван Писарев', color="#db4010")
+define a = Character('Алексей Калиниченко', color="#559d0d")
+define d = Character('Даниил Перекосов', color="#1c3ace")
+define k = Character('Константин Горшков', color="#e4e815")
+
 define p1 = Character("1", color="#ffd966")
 define p2 = Character("2", color="#ffd966")
 define p3 = Character("3", color="#ffd966")
@@ -41,7 +46,12 @@ label start:
 
 label vvedenie:
     scene bg room
-    e 'Введение'
+    play music "audio/Minecraft 1.mp3" fadein 1.0
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0)
+    show d normal at Position(xpos=0.6, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
+    'И вот наша дружная компания сдала выпускные квалификационные работы на отлично'
     jump shkaf_transition
 
 label shkaf_transition:
