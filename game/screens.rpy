@@ -1756,7 +1756,7 @@ screen story_map():
                                 ypadding 0
                                 background None
                                 hover_background None
-                                action [Hide("story_map"), Jump("room_%s" % room_number)]
+                                action [SetVariable("current_cabinet", room_number), Hide("story_map"), Jump(cabinet_scene_map.get(room_number, "story_scene_1"))]
 
         else:
             vbox:
@@ -1771,7 +1771,7 @@ screen story_map():
                         textbutton "Кабинет %s" % room_number:
                             xminimum 300
                             yminimum 90
-                            action [Hide("story_map"), Jump("room_%s" % room_number)]
+                            action [SetVariable("current_cabinet", room_number), Hide("story_map"), Jump(cabinet_scene_map.get(room_number, "story_scene_1"))]
 
         textbutton "Закрыть карту":
             xalign 0.5

@@ -1,4 +1,4 @@
-﻿define e = Character('я', color="#ffffff")
+define e = Character('я', color="#ffffff")
 define i = Character('Иван Писарев', color="#db4010")
 define a = Character('Алексей Калиниченко', color="#559d0d")
 define d = Character('Даниил Перекосов', color="#1c3ace")
@@ -20,128 +20,34 @@ define p12 = Character("Максим Громов", color="#90a4ae")
 default room_exit_counter = 0
 default visited_cabinets = []
 default ui_unlocked = False
-default room_assignments = {}
+default cabinet_scene_map = {}
+default current_cabinet = None
 
 init python:
-    # Each character carries all content needed for a room scene.
-    characters_data = [
-        {
-            "id": 1,
-            "speaker": p1,
-            "image": "i normal",
-            "lines": [
-                "Я все еще не верю, что мы действительно дошли до этого дня.",
-                "Кажется, в этих кабинетах спрятано больше историй, чем в наших чатах.",
-            ],
-        },
-        {
-            "id": 2,
-            "speaker": p2,
-            "image": "a normal",
-            "lines": [
-                "Если честно, я зашел сюда просто перевести дух.",
-                "Но теперь уже хочется понять, кто еще бродит по этому этажу.",
-            ],
-        },
-        {
-            "id": 3,
-            "speaker": p3,
-            "image": "d normal",
-            "lines": [
-                "Тишина в корпусе какая-то слишком подозрительная.",
-                "Такое чувство, будто здание ждет, когда мы сделаем следующий шаг.",
-            ],
-        },
-        {
-            "id": 4,
-            "speaker": p4,
-            "image": "k normal",
-            "lines": [
-                "Я бы не называл это обычной прогулкой после защиты.",
-                "У этого вечера явно есть свой сценарий.",
-            ],
-        },
-        {
-            "id": 5,
-            "speaker": p5,
-            "image": None,
-            "lines": [
-                "Я оставила в одном из кабинетов записку, но уже не помню в каком.",
-                "Если найдешь ее, не читай вслух, договорились?",
-            ],
-        },
-        {
-            "id": 6,
-            "speaker": p6,
-            "image": None,
-            "lines": [
-                "На этом этаже слишком хорошо слышны шаги.",
-                "Иногда кажется, что за нами кто-то идет на полсекунды позже.",
-            ],
-        },
-        {
-            "id": 7,
-            "speaker": p7,
-            "image": None,
-            "lines": [
-                "Я всегда думала, что ночью универ выглядит романтичнее.",
-                "Оказалось, ночью он выглядит так, будто знает о нас лишнее.",
-            ],
-        },
-        {
-            "id": 8,
-            "speaker": p8,
-            "image": None,
-            "lines": [
-                "Если открыть все кабинеты подряд, мы точно соберем полную картину.",
-                "Главное, чтобы картина потом не собрала нас.",
-            ],
-        },
-        {
-            "id": 9,
-            "speaker": p9,
-            "image": None,
-            "lines": [
-                "Я запомнила этот коридор еще с первого курса.",
-                "Только тогда он казался бесконечным, а сейчас — замкнутым.",
-            ],
-        },
-        {
-            "id": 10,
-            "speaker": p10,
-            "image": None,
-            "lines": [
-                "Хочешь совет? Не заходи в кабинет, если тебе уже не по себе.",
-                "Обычно интуиция ошибается реже, чем расписание.",
-            ],
-        },
-        {
-            "id": 11,
-            "speaker": p11,
-            "image": None,
-            "lines": [
-                "Я думала, что после защиты станет легче.",
-                "Но кажется, самое важное начинается только сейчас.",
-            ],
-        },
-        {
-            "id": 12,
-            "speaker": p12,
-            "image": None,
-            "lines": [
-                "В этом месте слишком много совпадений, чтобы считать их случайностью.",
-                "Если мы дошли сюда вместе, значит, назад дороги уже не будет.",
-            ],
-        },
-    ]
+    def ensure_cabinet_scene_map():
+        if cabinet_scene_map:
+            return
+
+        cabinets = ["420", "421", "422", "423", "424", "425", "426", "427", "428", "429", "430", "431"]
+        scene_labels = [
+            "story_scene_1",
+            "story_scene_2",
+            "story_scene_3",
+            "story_scene_4",
+            "story_scene_5",
+            "story_scene_6",
+            "story_scene_7",
+            "story_scene_8",
+            "story_scene_9",
+            "story_scene_10",
+            "story_scene_11",
+            "story_scene_12",
+        ]
+        renpy.random.shuffle(scene_labels)
+        store.cabinet_scene_map = dict(zip(cabinets, scene_labels))
 
 label start:
-    python:
-        rooms = ["420", "421", "422", "423", "424", "425", "426", "427", "428", "429", "430", "431"]
-        people = characters_data[:]
-        renpy.random.shuffle(people)
-        room_assignments = dict(zip(rooms, people))
-
+    $ ensure_cabinet_scene_map()
     jump vvedenie
 
 label vvedenie:
@@ -151,83 +57,124 @@ label vvedenie:
     show a normal at Position(xpos=0.3, ypos=1.0)
     show d normal at Position(xpos=0.6, ypos=1.0)
     show k normal at Position(xpos=0.9, ypos=1.0)
-    'И вот наша дружная компания сдала выпускные квалификационные работы на отлично'
+    "И вот наша дружная компания сдала выпускные квалификационные работы на отлично"
     jump shkaf_transition
 
 label shkaf_transition:
     scene bg room
-    e 'шкаф'
+    e "шкаф"
     jump base_room
 
 label base_room:
     scene bg room
     $ ui_unlocked = True
-    e 'Комната'
+    $ ensure_cabinet_scene_map()
+    e "Комната"
     $ renpy.pause()
     jump base_room
 
-label visit_room(room_id):
-    scene bg room
-    $ ui_unlocked = True
-    $ person = room_assignments[room_id]
+label scene_reset:
+    hide i normal
+    hide a normal
+    hide d normal
+    hide k normal
+    return
 
-    if person["image"]:
-        show expression person["image"]
-
-    python:
-        for line in person["lines"]:
-            renpy.say(person["speaker"], line)
-
-    if room_id not in visited_cabinets:
-        $ visited_cabinets.append(room_id)
+label finish_cabinet_scene:
+    if current_cabinet and current_cabinet not in visited_cabinets:
+        $ visited_cabinets.append(current_cabinet)
 
     $ room_exit_counter += 1
     jump base_room
 
-label room_420:
-    call visit_room("420")
-    return
+label story_scene_1:
+    scene bg room
+    call scene_reset
+    show i normal at Position(xpos=0.20, ypos=1.0)
+    p1 "Я все еще не верю, что мы действительно дошли до этого дня."
+    show i normal at Position(xpos=0.34, ypos=1.0)
+    p1 "Кажется, за каждой дверью здесь лежит отдельная история."
+    jump finish_cabinet_scene
 
-label room_421:
-    call visit_room("421")
-    return
+label story_scene_2:
+    scene bg room
+    call scene_reset
+    show a normal at Position(xpos=0.72, ypos=1.0)
+    p2 "Если честно, я зашел сюда просто перевести дух."
+    show a normal at Position(xpos=0.58, ypos=1.0)
+    p2 "Но теперь уже хочется понять, кто еще бродит по этому этажу."
+    jump finish_cabinet_scene
 
-label room_422:
-    call visit_room("422")
-    return
+label story_scene_3:
+    scene bg room
+    call scene_reset
+    show d normal at Position(xpos=0.48, ypos=1.0)
+    p3 "Тишина в корпусе какая-то слишком подозрительная."
+    show d normal at Position(xpos=0.44, ypos=1.0)
+    p3 "Такое чувство, будто здание ждет, когда мы сделаем следующий шаг."
+    jump finish_cabinet_scene
 
-label room_423:
-    call visit_room("423")
-    return
+label story_scene_4:
+    scene bg room
+    call scene_reset
+    show k normal at Position(xpos=0.82, ypos=1.0)
+    p4 "Я бы не называл это обычной прогулкой после защиты."
+    show k normal at Position(xpos=0.70, ypos=1.0)
+    p4 "У этого вечера явно есть свой сценарий."
+    jump finish_cabinet_scene
 
-label room_424:
-    call visit_room("424")
-    return
+label story_scene_5:
+    scene bg room
+    call scene_reset
+    p5 "Я оставила в одном из кабинетов записку, но уже не помню в каком."
+    p5 "Если найдешь ее, не читай вслух, договорились?"
+    jump finish_cabinet_scene
 
-label room_425:
-    call visit_room("425")
-    return
+label story_scene_6:
+    scene bg room
+    call scene_reset
+    p6 "На этом этаже слишком хорошо слышны шаги."
+    p6 "Иногда кажется, что за нами кто-то идет на полсекунды позже."
+    jump finish_cabinet_scene
 
-label room_426:
-    call visit_room("426")
-    return
+label story_scene_7:
+    scene bg room
+    call scene_reset
+    p7 "Я всегда думала, что ночью универ выглядит романтичнее."
+    p7 "Оказалось, ночью он выглядит так, будто знает о нас лишнее."
+    jump finish_cabinet_scene
 
-label room_427:
-    call visit_room("427")
-    return
+label story_scene_8:
+    scene bg room
+    call scene_reset
+    p8 "Если открыть все кабинеты подряд, мы точно соберем полную картину."
+    p8 "Главное, чтобы картина потом не собрала нас."
+    jump finish_cabinet_scene
 
-label room_428:
-    call visit_room("428")
-    return
+label story_scene_9:
+    scene bg room
+    call scene_reset
+    p9 "Я запомнила этот коридор еще с первого курса."
+    p9 "Только тогда он казался бесконечным, а сейчас замкнутым."
+    jump finish_cabinet_scene
 
-label room_429:
-    call visit_room("429")
-    return
+label story_scene_10:
+    scene bg room
+    call scene_reset
+    p10 "Хочешь совет? Не заходи в кабинет, если тебе уже не по себе."
+    p10 "Обычно интуиция ошибается реже, чем расписание."
+    jump finish_cabinet_scene
 
-label room_430:
-    call visit_room("430")
-    return
+label story_scene_11:
+    scene bg room
+    call scene_reset
+    p11 "Я думала, что после защиты станет легче."
+    p11 "Но кажется, самое важное начинается только сейчас."
+    jump finish_cabinet_scene
 
-label room_431:
-    call visit_room("431")
-    return
+label story_scene_12:
+    scene bg room
+    call scene_reset
+    p12 "В этом месте слишком много совпадений, чтобы считать их случайностью."
+    p12 "Если мы дошли сюда вместе, значит, назад дороги уже не будет."
+    jump finish_cabinet_scene
