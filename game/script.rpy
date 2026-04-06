@@ -168,15 +168,30 @@ label shkaf_transition:
     hide shkaf_darken
     k "У нас в Саратове за такие приколы ебучку сносят!"
     i "Кто бы это ни был, мы до него доберемся!"
-    jump base_room
+    jump pre_base_room
+
+label pre_base_room:
+    scene bg corridor
+    show i normal at Position(xpos=0.1, ypos=1.0) with dissolve
+    show a normal at Position(xpos=0.3, ypos=1.0) with dissolve
+    show d normal at Position(xpos=0.6, ypos=1.0) with dissolve
+    show k normal at Position(xpos=0.9, ypos=1.0) with dissolve
+    a "Давайте быстрее найдем этого *****, а то пиво стынет!"
+    k "Как хорошо, что мы сделали приложение с картой ГЗ, и можно спокойно ориентироваться по этажу!"
+    i "Пойдем?"
+    $ ui_unlocked = True
+    d "Куда?" (advance=False)
 
 label base_room:
-    scene bg room
+    scene bg corridor
+    show i normal at Position(xpos=0.1, ypos=1.0) 
+    show a normal at Position(xpos=0.3, ypos=1.0) 
+    show d normal at Position(xpos=0.6, ypos=1.0) 
+    show k normal at Position(xpos=0.9, ypos=1.0) 
     $ ui_unlocked = True
     $ ensure_cabinet_scene_map()
-    "Нужно открыть карту и двигаться дальше"
-    $ renpy.pause(0)
-    jump base_room
+    $ random_speaker = renpy.random.choice([i, a, d, k])
+    $ renpy.say(random_speaker, "Ладно парни идем дальше", advance=False)
 
 # label scene_reset:
 #     hide i normal
@@ -194,6 +209,7 @@ label finish_cabinet_scene:
 
 # История Лычкова (поздравляет с успешной защитой)
 label story_scene_1:
+    $ ui_unlocked = False
     scene bg room
     show lichkov normal
     p1 "Я все еще не верю, что мы действительно дошли до этого дня."
@@ -201,6 +217,7 @@ label story_scene_1:
 
 # История Недаша (отмечает 200 летие)
 label story_scene_2:
+    $ ui_unlocked = False
     scene bg room
     show nedash elder
     p2 "Если честно, я зашел сюда просто перевести дух."
@@ -216,6 +233,7 @@ label story_scene_2:
 
 # История Семенцова (чинит проводку)
 label story_scene_3:
+    $ ui_unlocked = False
     scene bg room
     show semens cyborg
     p3 "Тишина в корпусе какая-то слишком подозрительная."
@@ -224,6 +242,7 @@ label story_scene_3:
 
 # История Брызгалова (качается)
 label story_scene_4:
+    $ ui_unlocked = False
     scene bg room
     show brizg normal
     p4 "Я бы не называл это обычной прогулкой после защиты."
@@ -242,6 +261,7 @@ label story_scene_4:
 
 # История Адамовой (желает доминировать)
 label story_scene_5:
+    $ ui_unlocked = False
     scene bg room
     show adamova normal
     p5 "Я оставила в одном из кабинетов записку, но уже не помню в каком."
@@ -250,6 +270,7 @@ label story_scene_5:
 
 # История Бабкина (не может стереть с доски "бабкин пидарас")
 label story_scene_6:
+    $ ui_unlocked = False
     scene bg room
     show babkin normal
     p6 "На этом этаже слишком хорошо слышны шаги."
@@ -258,6 +279,7 @@ label story_scene_6:
 
 # История Левиева (хочет кушать)
 label story_scene_7:
+    $ ui_unlocked = False
     scene bg room
     show leviev normal
     p7 "Я всегда думала, что ночью универ выглядит романтичнее."
@@ -266,6 +288,7 @@ label story_scene_7:
 
 # История Бянкина (синетзирует элемент)
 label story_scene_8:
+    $ ui_unlocked = False
     scene bg room
     show byankin normal
     p8 "Если открыть все кабинеты подряд, мы точно соберем полную картину."
@@ -276,6 +299,7 @@ label story_scene_8:
 
 # История Тихомировой (нашла куртку на кафедре)
 label story_scene_9:
+    $ ui_unlocked = False
     scene bg room
     show tishka normal:
         zoom 0.9
@@ -287,6 +311,7 @@ label story_scene_9:
 
 # История Кадырбаевой (хочет написать фанфик)
 label story_scene_10:
+    $ ui_unlocked = False
     scene bg room
     show kadira normal
     p10 "Хочешь совет? Не заходи в кабинет, если тебе уже не по себе."
@@ -295,6 +320,7 @@ label story_scene_10:
 
 # История Выхованца (хочет чтобы проверили гост)
 label story_scene_11:
+    $ ui_unlocked = False
     scene bg room
     p11 "Я думала, что после защиты станет легче."
     p11 "Но кажется, самое важное начинается только сейчас."
@@ -302,7 +328,9 @@ label story_scene_11:
 
 # История Фёдорова (хз)
 label story_scene_12:
+    $ ui_unlocked = False
     scene bg room
     p12 "В этом месте слишком много совпадений, чтобы считать их случайностью."
     p12 "Если мы дошли сюда вместе, значит, назад дороги уже не будет."
     jump finish_cabinet_scene
+
