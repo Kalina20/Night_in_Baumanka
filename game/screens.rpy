@@ -1781,6 +1781,44 @@ screen story_scene_1_match_game():
                             hover_background Solid("#d98836dd" if not right_done else "#2e7d32cc")
                             action Function(story_scene_1_select_right, right_item)
 
+screen story_scene_3_resistor_game():
+    modal True
+    zorder 1200
+
+    frame:
+        xpos 1080
+        ypos 180
+        xsize 720
+        ysize 620
+        background Solid("#111a")
+        padding (30, 30)
+
+        vbox:
+            spacing 24
+            xfill True
+
+            text "Что изображено на картинке?":
+                xalign 0.5
+                size 36
+                color "#ffffff"
+                outlines [(2, "#000000", 0, 0)]
+
+            add Transform("images/resistor.jpg", fit="contain", xsize=560, ysize=320):
+                xalign 0.5
+
+            textbutton "резистор":
+                xalign 0.5
+                xsize 320
+                ysize 90
+                text_size 30
+                text_color "#ffffff"
+                text_xalign 0.5
+                text_yalign 0.5
+                text_textalign 0.5
+                background Solid("#2f7f44cc")
+                hover_background Solid("#3b9b56dd")
+                action Return()
+
 screen story_scene_4_minigame():
     modal True
     zorder 1200
