@@ -705,8 +705,6 @@ screen file_slots(title):
 
                         has vbox
 
-                        add FileScreenshot(slot) xalign 0.5
-
                         text FileTime(slot, format=_("{#file_time}%A, %d %B %Y, %H:%M"), empty=_("Пустой слот")):
                             style "slot_time_text"
 
@@ -1108,10 +1106,6 @@ screen keyboard_help():
     hbox:
         label "H"
         text _("Скрывает интерфейс пользователя.")
-
-    hbox:
-        label "S"
-        text _("Делает снимок экрана.")
 
     hbox:
         label "V"
@@ -1719,6 +1713,12 @@ screen story_scene_4_minigame():
     modal True
     zorder 1200
 
+    $ state_text = "Положение: вниз" if story_scene_4_is_down else "Положение: вверх"
+    $ state_color = "#6ec1ff" if story_scene_4_is_down else "#ffffff"
+    $ down_bg = "#2b5cffaa" if story_scene_4_is_down else "#1d1d1daa"
+    $ up_bg = "#2fa34aaa" if not story_scene_4_is_down else "#1d1d1daa"
+    $ pose_image = "k normal" if story_scene_4_is_down else "i normal"
+
     if story_scene_4_minigame_won or story_scene_4_minigame_lost:
         timer 0.01 action Return()
     else:
@@ -1729,93 +1729,96 @@ screen story_scene_4_minigame():
     key "s" action Function(story_scene_4_press_down)
     key "w" action Function(story_scene_4_press_up)
 
-    add Solid("#0008")
+    add pose_image:
+        xpos 170
+        yalign 1.0
 
     frame:
-        align (0.5, 0.5)
-        xsize 920
-        ysize 520
-        background Solid("#111c")
-        padding (40, 35)
+        xpos 1130
+        ypos 260
+        xsize 760
+        ysize 560
+        background Solid("#111a")
+        padding (34, 30)
 
         vbox:
-            spacing 22
+            spacing 18
             xfill True
 
             text "Мини-игра: приседания":
                 xalign 0.5
-                size 42
+                size 36
                 color "#ffffff"
                 outlines [(2, "#000000", 0, 0)]
 
             text "Нажимай S, чтобы присесть, и W, чтобы встать. Нужно сделать 30 повторений за 30 секунд.":
                 xalign 0.5
                 text_align 0.5
-                size 28
+                size 24
                 color "#f0f0f0"
 
             hbox:
-                spacing 80
+                spacing 55
                 xalign 0.5
 
                 vbox:
                     spacing 10
                     text "Осталось времени":
-                        size 28
+                        size 24
                         color "#cccccc"
                     text "[story_scene_4_time_left] сек":
-                        size 44
+                        size 38
                         color "#ffd54a"
 
                 vbox:
                     spacing 10
                     text "Сделано приседаний":
-                        size 28
+                        size 24
                         color "#cccccc"
                     text "[story_scene_4_squats] / 30":
-                        size 44
+                        size 38
                         color "#7dff7d"
 
             bar value StaticValue(story_scene_4_squats, 30):
                 xalign 0.5
-                xmaximum 760
+                xmaximum 620
                 ymaximum 28
 
             frame:
                 xalign 0.5
-                xsize 420
-                ysize 120
+                xsize 340
+                ysize 100
                 background Solid("#ffffff10")
 
-                text ("Положение: вниз" if story_scene_4_is_down else "Положение: вверх"):
+                text state_text:
                     align (0.5, 0.5)
-                    size 38
-                    color ("#6ec1ff" if story_scene_4_is_down else "#ffffff")
+                    size 32
+                    color state_color
 
             hbox:
-                spacing 40
+                spacing 26
                 xalign 0.5
 
                 frame:
-                    xsize 180
-                    ysize 80
-                    background Solid("#2b5cffaa" if story_scene_4_is_down else "#1d1d1daa")
+                    xsize 150
+                    ysize 76
+                    background Solid(down_bg)
 
                     text "S\nвниз":
                         align (0.5, 0.5)
                         text_align 0.5
-                        size 30
+                        size 28
                         color "#ffffff"
 
                 frame:
-                    xsize 180
-                    ysize 80
-                    background Solid("#2fa34aaa" if not story_scene_4_is_down else "#1d1d1daa")
+                    xsize 150
+                    ysize 76
+                    background Solid(up_bg)
 
                     text "W\nвверх":
                         align (0.5, 0.5)
                         text_align 0.5
-                        size 30
+                        size 28
                         color "#ffffff"
 ## Экран карты сюжета ###########################################################
 screen story_map():

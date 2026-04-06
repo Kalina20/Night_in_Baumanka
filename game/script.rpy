@@ -193,7 +193,9 @@ label story_scene_4:
     p4 "Раз уж зашли так далеко, покажи, как умеешь приседать."
     p4 "У тебя 30 секунд и 30 повторений. S - вниз, W - вверх."
     $ reset_story_scene_4_minigame()
+    hide brizg normal
     call screen story_scene_4_minigame
+    show brizg normal
     if story_scene_4_minigame_won:
         p4 "Вот это темп. Сразу видно: к ночному забегу по Бауманке ты готов."
     else:
