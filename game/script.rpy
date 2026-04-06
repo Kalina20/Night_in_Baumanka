@@ -23,6 +23,7 @@ default ui_unlocked = False
 default cabinet_scene_map = {}
 default current_cabinet = None
 default found_story_scene_2_item = False
+default failed_story_scene_2_search = False
 
 init python:
     def ensure_cabinet_scene_map():
@@ -112,8 +113,12 @@ label story_scene_2:
     show nedash elder
     p2 "Если честно, я зашел сюда просто перевести дух."
     $ found_story_scene_2_item = False
+    $ failed_story_scene_2_search = False
     call screen story_scene_2_search
-    p2 "Нашел. Значит, здесь действительно кто-то был до нас."
+    if found_story_scene_2_item:
+        p2 "Нашел. Значит, здесь действительно кто-то был до нас."
+    elif failed_story_scene_2_search:
+        p2 "Не нашли... Значит, я либо ошибся, либо мы упустили что-то важное."
     p2 "Но теперь уже хочется понять, кто еще бродит по этому этажу."
     jump finish_cabinet_scene
 
