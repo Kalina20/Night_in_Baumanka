@@ -1714,6 +1714,109 @@ screen story_scene_2_search():
         background None
         hover_background Solid("#ffffff22")
         action [SetVariable("found_story_scene_2_item", True), Return()]
+
+screen story_scene_4_minigame():
+    modal True
+    zorder 1200
+
+    if story_scene_4_minigame_won or story_scene_4_minigame_lost:
+        timer 0.01 action Return()
+    else:
+        timer 1.0 repeat True action Function(story_scene_4_tick)
+
+    key "K_s" action Function(story_scene_4_press_down)
+    key "K_w" action Function(story_scene_4_press_up)
+    key "s" action Function(story_scene_4_press_down)
+    key "w" action Function(story_scene_4_press_up)
+
+    add Solid("#0008")
+
+    frame:
+        align (0.5, 0.5)
+        xsize 920
+        ysize 520
+        background Solid("#111c")
+        padding (40, 35)
+
+        vbox:
+            spacing 22
+            xfill True
+
+            text "Мини-игра: приседания":
+                xalign 0.5
+                size 42
+                color "#ffffff"
+                outlines [(2, "#000000", 0, 0)]
+
+            text "Нажимай S, чтобы присесть, и W, чтобы встать. Нужно сделать 30 повторений за 30 секунд.":
+                xalign 0.5
+                text_align 0.5
+                size 28
+                color "#f0f0f0"
+
+            hbox:
+                spacing 80
+                xalign 0.5
+
+                vbox:
+                    spacing 10
+                    text "Осталось времени":
+                        size 28
+                        color "#cccccc"
+                    text "[story_scene_4_time_left] сек":
+                        size 44
+                        color "#ffd54a"
+
+                vbox:
+                    spacing 10
+                    text "Сделано приседаний":
+                        size 28
+                        color "#cccccc"
+                    text "[story_scene_4_squats] / 30":
+                        size 44
+                        color "#7dff7d"
+
+            bar value StaticValue(story_scene_4_squats, 30):
+                xalign 0.5
+                xmaximum 760
+                ymaximum 28
+
+            frame:
+                xalign 0.5
+                xsize 420
+                ysize 120
+                background Solid("#ffffff10")
+
+                text ("Положение: вниз" if story_scene_4_is_down else "Положение: вверх"):
+                    align (0.5, 0.5)
+                    size 38
+                    color ("#6ec1ff" if story_scene_4_is_down else "#ffffff")
+
+            hbox:
+                spacing 40
+                xalign 0.5
+
+                frame:
+                    xsize 180
+                    ysize 80
+                    background Solid("#2b5cffaa" if story_scene_4_is_down else "#1d1d1daa")
+
+                    text "S\nвниз":
+                        align (0.5, 0.5)
+                        text_align 0.5
+                        size 30
+                        color "#ffffff"
+
+                frame:
+                    xsize 180
+                    ysize 80
+                    background Solid("#2fa34aaa" if not story_scene_4_is_down else "#1d1d1daa")
+
+                    text "W\nвверх":
+                        align (0.5, 0.5)
+                        text_align 0.5
+                        size 30
+                        color "#ffffff"
 ## Экран карты сюжета ###########################################################
 screen story_map():
 

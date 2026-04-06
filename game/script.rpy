@@ -24,6 +24,11 @@ default cabinet_scene_map = {}
 default current_cabinet = None
 default found_story_scene_2_item = False
 default failed_story_scene_2_search = False
+default story_scene_4_squats = 0
+default story_scene_4_time_left = 30
+default story_scene_4_is_down = False
+default story_scene_4_minigame_won = False
+default story_scene_4_minigame_lost = False
 
 init python:
     def ensure_cabinet_scene_map():
@@ -47,6 +52,49 @@ init python:
         ]
         # renpy.random.shuffle(scene_labels) пока закометим для отладки
         store.cabinet_scene_map = dict(zip(cabinets, scene_labels))
+
+    def reset_story_scene_4_minigame():
+        store.story_scene_4_squats = 0
+        store.story_scene_4_time_left = 30
+        store.story_scene_4_is_down = False
+        store.story_scene_4_minigame_won = False
+        store.story_scene_4_minigame_lost = False
+
+    def story_scene_4_press_down():
+        if store.story_scene_4_minigame_won or store.story_scene_4_minigame_lost:
+            return
+
+        if not store.story_scene_4_is_down:
+            store.story_scene_4_is_down = True
+            renpy.restart_interaction()
+
+    def story_scene_4_press_up():
+        if store.story_scene_4_minigame_won or store.story_scene_4_minigame_lost:
+            return
+
+        if store.story_scene_4_is_down:
+            store.story_scene_4_is_down = False
+            store.story_scene_4_squats += 1
+
+            if store.story_scene_4_squats >= 30:
+                store.story_scene_4_minigame_won = True
+
+            renpy.restart_interaction()
+
+    def story_scene_4_tick():
+        if store.story_scene_4_minigame_won or store.story_scene_4_minigame_lost:
+            return
+
+        store.story_scene_4_time_left -= 1
+
+        if store.story_scene_4_time_left <= 0:
+            store.story_scene_4_time_left = 0
+            if store.story_scene_4_squats >= 30:
+                store.story_scene_4_minigame_won = True
+            else:
+                store.story_scene_4_minigame_lost = True
+
+        renpy.restart_interaction()
 
 label start:
     $ ensure_cabinet_scene_map()
@@ -142,6 +190,14 @@ label story_scene_4:
     show brizg normal
     p4 "Я бы не называл это обычной прогулкой после защиты."
     p4 "У этого вечера явно есть свой сценарий."
+    p4 "Раз уж зашли так далеко, покажи, как умеешь приседать."
+    p4 "У тебя 30 секунд и 30 повторений. S - вниз, W - вверх."
+    $ reset_story_scene_4_minigame()
+    call screen story_scene_4_minigame
+    if story_scene_4_minigame_won:
+        p4 "Вот это темп. Сразу видно: к ночному забегу по Бауманке ты готов."
+    else:
+        p4 "Не хватило совсем чуть-чуть. После такой защиты простительно."
     jump finish_cabinet_scene
 
 # История Адамовой (желает доминировать)
