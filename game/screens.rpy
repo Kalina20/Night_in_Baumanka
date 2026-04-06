@@ -1709,6 +1709,79 @@ screen story_scene_2_search():
         hover_background Solid("#ffffff22")
         action [SetVariable("found_story_scene_2_item", True), Return()]
 
+screen story_scene_1_match_game():
+    modal True
+    zorder 1200
+
+    $ left_label = story_scene_1_match_selected_left if story_scene_1_match_selected_left else "ничего"
+    $ right_label = story_scene_1_match_selected_right if story_scene_1_match_selected_right else "ничего"
+
+    if story_scene_1_match_success or story_scene_1_match_failed:
+        timer 0.01 action Return()
+
+    frame:
+        xpos 120
+        ypos 150
+        xsize 1180
+        ysize 660
+        background Solid("#0f1b12dd")
+        padding (35, 30)
+
+        vbox:
+            spacing 24
+            xfill True
+
+            text "Соедини пример с правильным ответом":
+                xalign 0.5
+                size 38
+                color "#ffffff"
+                outlines [(2, "#000000", 0, 0)]
+
+
+            hbox:
+                spacing 120
+                xalign 0.5
+
+                vbox:
+                    spacing 18
+
+                    
+
+                    for left_item in ["2 + 2", "5 - 2", "3 x 3"]:
+                        $ left_selected = story_scene_1_match_selected_left == left_item
+                        $ left_done = left_item in story_scene_1_match_done
+
+                        textbutton left_item:
+                            xsize 320
+                            ysize 86
+                            text_size 30
+                            text_color "#ffffff"
+                            background Solid("#2e7d32aa" if left_done else ("#3d6ec9cc" if left_selected else "#1d1d1dcc"))
+                            hover_background Solid("#4f86e8dd" if not left_done else "#2e7d32cc")
+                            action Function(story_scene_1_select_left, left_item)
+
+                vbox:
+                    spacing 18
+
+                    
+
+                    for right_item in ["И", "ИЛИ", "XOR"]:
+                        $ right_selected = story_scene_1_match_selected_right == right_item
+                        $ right_done = right_item in story_scene_1_match_done
+
+                        textbutton right_item:
+                            xsize 320
+                            ysize 86
+                            text_size 30
+                            text_color "#ffffff"
+                            background Solid("#2e7d32aa" if right_done else ("#c96d2acc" if right_selected else "#1d1d1dcc"))
+                            hover_background Solid("#d98836dd" if not right_done else "#2e7d32cc")
+                            action Function(story_scene_1_select_right, right_item)
+
+           
+
+           
+
 screen story_scene_4_minigame():
     modal True
     zorder 1200
@@ -1745,7 +1818,7 @@ screen story_scene_4_minigame():
             spacing 18
             xfill True
 
-            text "Мини-игра: приседания":
+            text "":
                 xalign 0.5
                 size 36
                 color "#ffffff"
