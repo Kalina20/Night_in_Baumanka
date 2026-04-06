@@ -217,11 +217,17 @@ label story_scene_1:
     p1 "Я все еще не верю, что мы действительно дошли до этого дня."
     jump finish_cabinet_scene
 
-# История Недаша (отмечает 200 летие)
+# История Недаша (найти предмет)
 label story_scene_2:
     $ ui_unlocked = False
     scene bg room
-    show nedash elder
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0)
+    show d normal at Position(xpos=0.7, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
+    $ renpy.pause(1.0, hard=True)
+    show nedash elder with Dissolve(2.0)
+    $ renpy.pause(1.0, hard=True)
     p2 "Если честно, я зашел сюда просто перевести дух."
     $ found_story_scene_2_item = False
     $ failed_story_scene_2_search = False
@@ -243,7 +249,7 @@ label story_scene_3:
     p3 "Такое чувство, будто здание ждет, когда мы сделаем следующий шаг."
     jump finish_cabinet_scene
 
-# История Брызгалова (качается)
+# История Брызгалова (приседания)
 label story_scene_4:
     $ ui_unlocked = False
     scene bg room
