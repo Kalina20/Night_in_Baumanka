@@ -97,9 +97,9 @@ init python:
 
     def story_scene_1_try_match():
         correct_pairs = {
-            "2 + 2": "4",
-            "5 - 2": "3",
-            "3 x 3": "9",
+            "images/or.jpg": "ИЛИ",
+            "images/xor.jpg": "XOR",
+            "images/imp.jpg": "->",
         }
 
         left = store.story_scene_1_match_selected_left

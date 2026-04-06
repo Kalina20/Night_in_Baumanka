@@ -1739,48 +1739,47 @@ screen story_scene_1_match_game():
 
 
             hbox:
-                spacing 120
+                spacing 140
                 xalign 0.5
 
                 vbox:
-                    spacing 18
-
-                    
-
-                    for left_item in ["2 + 2", "5 - 2", "3 x 3"]:
+                    spacing 24
+                    for left_item in [
+                        "images/or.jpg",
+                        "images/xor.jpg",
+                        "images/imp.jpg",
+                    ]:
                         $ left_selected = story_scene_1_match_selected_left == left_item
                         $ left_done = left_item in story_scene_1_match_done
 
-                        textbutton left_item:
+                        button:
                             xsize 320
-                            ysize 86
-                            text_size 30
-                            text_color "#ffffff"
+                            ysize 140
                             background Solid("#2e7d32aa" if left_done else ("#3d6ec9cc" if left_selected else "#1d1d1dcc"))
                             hover_background Solid("#4f86e8dd" if not left_done else "#2e7d32cc")
                             action Function(story_scene_1_select_left, left_item)
 
+                            add Transform(left_item, fit="contain", xsize=280, ysize=110):
+                                xalign 0.5
+                                yalign 0.5
+
                 vbox:
-                    spacing 18
-
-                    
-
-                    for right_item in ["И", "ИЛИ", "XOR"]:
+                    spacing 24
+                    for right_item in ["->", "ИЛИ", "XOR"]:
                         $ right_selected = story_scene_1_match_selected_right == right_item
                         $ right_done = right_item in story_scene_1_match_done
 
                         textbutton right_item:
                             xsize 320
-                            ysize 86
+                            ysize 140
                             text_size 30
                             text_color "#ffffff"
+                            text_xalign 0.5
+                            text_yalign 0.5
+                            text_textalign 0.5
                             background Solid("#2e7d32aa" if right_done else ("#c96d2acc" if right_selected else "#1d1d1dcc"))
                             hover_background Solid("#d98836dd" if not right_done else "#2e7d32cc")
                             action Function(story_scene_1_select_right, right_item)
-
-           
-
-           
 
 screen story_scene_4_minigame():
     modal True
