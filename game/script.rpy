@@ -133,7 +133,23 @@ label shkaf_transition:
     show a normal at Position(xpos=0.2, ypos=1.0)
     show d normal at Position(xpos=0.3, ypos=1.0)
     show k normal at Position(xpos=0.4, ypos=1.0)
-    "В этом шкафу должно было быть пиво..."
+    d "Ну, парни, хряпнем!"
+    i "Хряпнем!"
+    a "Хряпнем!"
+    k "Хряпнем!"
+    show expression Solid("#0008") as shkaf_darken onlayer master
+    show empty_chest:
+        xalign 0.5
+        yalign 0.5
+        zoom 0.7
+        yoffset -100
+    with dissolve
+    $ renpy.pause()
+    i "Не понял юмора..."
+    a "Приехали..."
+    hide empty_chest
+    hide shkaf_darken
+    k "Надо разобраться"
     jump base_room
 
 label base_room:
