@@ -1731,7 +1731,7 @@ screen story_scene_1_match_game():
             spacing 24
             xfill True
 
-            text "Соедини пример с правильным ответом":
+            text "Кликни на таблицу истинности, а затем на соответствующую ей функцию":
                 xalign 0.5
                 size 38
                 color "#ffffff"

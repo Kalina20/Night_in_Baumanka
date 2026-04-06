@@ -283,6 +283,7 @@ label story_scene_1:
     call screen story_scene_1_match_game
     if story_scene_1_match_success:
         p1 "Все верно. Значит, не зря мы столько лет сидели в этих аудиториях."
+        $ success_flag = True
     else:
         p1 "Нет, так не пойдет. Тут не все совпало правильно."
     jump finish_cabinet_scene
