@@ -165,7 +165,7 @@ label start:
 
 label vvedenie:
     scene bg room
-    play music "audio/Minecraft 1.mp3" fadein 1.0
+    play music "audio/Minecraft 1.mp3"
     "Эта история началась много лет назад..."
     "Несколько влиятельных людей по счастливой случайности оказались в одном университете, и даже в одной группе..."
     "Они были настолько разными, что даже не могли представить, что у них может быть что-то общее..."
@@ -183,7 +183,8 @@ label vvedenie:
     "На пути {color=#ff5555}Ремонта{/color} возникало много препятствий, но они всегда поддерживали друг друга и находили выход из любой ситуации..."
     "Они чертили, кодили, плавали, выпивали, расстраивались и радовались вместе..."
     "И, после стольких лет, они наконец дошли до финиша и успешно защитили свои выпускные квалификационные работы!"
-    "Но теперь им предстояло отпраздновать это знаменательное событие...и отпраздновать с огоньком, а, вернее сказать, с ящиком Corona Extra..."
+    "Но теперь им предстояло отпраздновать это знаменательное событие...и отпраздновать с огоньком, а, вернее сказать, 
+    с ящиком {color=#f0fc05}Corona Extra{/color}..."
     "...Прямо в стенах их родного университета!"
     "План был надеждый, как швейцарские часы - аккуратно пронести бутылки в рюкзаках, 
     спрятать их в неприметном шкафу, а ночью, когда универститет будет пуст, начать вечеринку..."
@@ -235,6 +236,7 @@ label shkaf_transition:
 
 label pre_base_room:
     scene bg corridor
+    play music "coridor.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0) with dissolve
     show a normal at Position(xpos=0.3, ypos=1.0) with dissolve
     show d normal at Position(xpos=0.6, ypos=1.0) with dissolve
@@ -247,6 +249,7 @@ label pre_base_room:
 
 label base_room:
     scene bg corridor
+    play music "coridor.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0) 
     show a normal at Position(xpos=0.3, ypos=1.0) 
     show d normal at Position(xpos=0.6, ypos=1.0) 
@@ -254,7 +257,7 @@ label base_room:
     $ ui_unlocked = True
     $ ensure_cabinet_scene_map()
     $ random_speaker = renpy.random.choice([i, a, d, k])
-    $ renpy.say(random_speaker, "Ладно парни идем дальше", advance=False)
+    $ renpy.say(random_speaker, "Ладно парни идем дальше!", advance=False)
 
 # label scene_reset:
 #     hide i normal
@@ -293,6 +296,7 @@ label finish_cabinet_scene:
 label story_scene_1:
     $ ui_unlocked = False
     scene expression Transform("images/doska.jpg", size=(1920, 1080))
+    play music "Smeshariki_-_Meteority_OST_Kosmicheskaya_odisseya_(SkySound.cc).mp3"
     show lichkov normal at Position(xpos=0.84, ypos=1.0)
     p1 "Я все еще не верю, что мы действительно дошли до этого дня."
     p1 "Раз уж мы у доски, давай быстро проверим базу."
@@ -302,6 +306,7 @@ label story_scene_1:
     if story_scene_1_match_success:
         p1 "Все верно. Значит, не зря мы столько лет сидели в этих аудиториях."
         $ success_flag = True
+        call show_beer(2)
     else:
         p1 "Нет, так не пойдет. Тут не все совпало правильно."
     jump finish_cabinet_scene
@@ -310,6 +315,7 @@ label story_scene_1:
 label story_scene_2:
     $ ui_unlocked = False
     scene bg room
+    play music "nedash_smeshariki.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.3, ypos=1.0)
     show d normal at Position(xpos=0.7, ypos=1.0)
@@ -319,7 +325,7 @@ label story_scene_2:
     $ renpy.pause(1.0, hard=True)
     p2 "Приветсвую вас, о юные дарования!"
     a "Вячеслав Михайлович?!"
-    p2 "А кто же еще, ахахахахха! Поздравляю вас с успешной защитой, хвала фильтру Баттерворта! Вы действительно заслужиили отдых."
+    p2 "А кто же еще, ахахахахха! Поздравляю вас с успешной защитой, хвала фильтру Баттерворта! Вы действительно заслужили отдых."
     p2 "Должен сказать, я наслышан о вашей затее, но мне нужна ваша помощь. Понимаете, годы уже не те,
     и зрение мое меня подводит."
     p2 "Помогите мне отыскать запоминающее устройство с НИРСами студентов, и я укажу вам путь к жидкому золоту."
@@ -342,18 +348,21 @@ label story_scene_2:
 label story_scene_3:
     $ ui_unlocked = False
     scene bg room
+    play music "semens.mp3"
     show semens cyborg at Position(xpos=0.18, ypos=1.0)
     p3 "Тишина в корпусе какая-то слишком подозрительная."
     p3 "Такое чувство, будто здание ждет, когда мы сделаем следующий шаг."
     p3 "Ладно, тогда совсем простой вопрос."
     call screen story_scene_3_resistor_game
     p3 "Да, это резистор. Значит, базу ты еще помнишь."
+    call show_beer(2)
     jump finish_cabinet_scene
 
 # История Брызгалова (приседания)
-label story_scene_4:
+label story_scene_4:    
     $ ui_unlocked = False
     scene bg room
+    play music "brizg_smeshariki.mp3"
     show brizg normal
     p4 "Я бы не называл это обычной прогулкой после защиты."
     p4 "У этого вечера явно есть свой сценарий."
@@ -367,9 +376,10 @@ label story_scene_4:
         p4 "Вот это темп. Сразу видно: к ночному забегу по Бауманке ты готов."
         p4 "Ой, чуть не забыл про подарочек...Вот, держите, и помните - 
         в алкоголе всегда нужно знать меру, иначе можно выпить меньше!"
+        call show_beer(2)
         $ success_flag = True
     else:
-        p4 "Не хватило совсем чуть-чуть. После такой защиты простительн, но в качестве домашнего задания
+        p4 "Не хватило совсем чуть-чуть. После такой защиты простительно, но в качестве домашнего задания
         даю вам 100 км на велосипеде по измайловскому парку!"
     jump finish_cabinet_scene
 
