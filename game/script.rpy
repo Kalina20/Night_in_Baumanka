@@ -17,11 +17,12 @@ define p7 = Character("Левиев Дмитрий Олегович", color="#dd
 define p11 = Character("Выхованец Валерий Святославович", color="#dddddd")
 define p12 = Character("Фёдоров Сергей Владимирович", color="#dddddd")
 
-default room_exit_counter = 0
+default bottle_counter = 0
 default visited_cabinets = []
 default ui_unlocked = False
 default cabinet_scene_map = {}
 default current_cabinet = None
+default success_flag = False
 default found_story_scene_2_item = False
 default failed_story_scene_2_search = False
 default story_scene_4_squats = 0
@@ -203,8 +204,9 @@ label base_room:
 label finish_cabinet_scene:
     if current_cabinet and current_cabinet not in visited_cabinets:
         $ visited_cabinets.append(current_cabinet)
-
-    $ room_exit_counter += 1
+    if success_flag:
+        $ bottle_counter += 2
+    $ success_flag = False
     jump base_room
 
 # История Лычкова (поздравляет с успешной защитой)
@@ -226,6 +228,7 @@ label story_scene_2:
     call screen story_scene_2_search
     if found_story_scene_2_item:
         p2 "Нашел. Значит, здесь действительно кто-то был до нас."
+        $ success_flag = True
     elif failed_story_scene_2_search:
         p2 "Не нашли... Значит, я либо ошибся, либо мы упустили что-то важное."
     p2 "Но теперь уже хочется понять, кто еще бродит по этому этажу."
@@ -255,8 +258,12 @@ label story_scene_4:
     show brizg normal
     if story_scene_4_minigame_won:
         p4 "Вот это темп. Сразу видно: к ночному забегу по Бауманке ты готов."
+        p4 "Ой, чуть не забыл про подарочек...Вот, держите, и помните - 
+        в алкоголе всегда нужно знать меру, иначе можно выпить меньше!"
+        $ success_flag = True
     else:
-        p4 "Не хватило совсем чуть-чуть. После такой защиты простительно."
+        p4 "Не хватило совсем чуть-чуть. После такой защиты простительн, но в качестве домашнего задания
+        даю вам 100 км на велосипеде по измайловскому парку!"
     jump finish_cabinet_scene
 
 # История Адамовой (желает доминировать)

@@ -307,7 +307,7 @@ screen room_counter_hud():
                 color "#ffd400"
                 outlines [(2, "#00000099", 0, 0)]
 
-            text "[room_exit_counter]":
+            text "[bottle_counter]":
                 size 42
                 bold True
                 color "#ffd400"
