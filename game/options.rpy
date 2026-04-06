@@ -153,6 +153,10 @@ define config.save_directory = "NightinBauman-1775218578"
 
 define config.window_icon = "gui/window_icon.png"
 
+init python:
+    # Отключаем стандартную горячую клавишу скриншота Ren'Py.
+    config.keymap["screenshot"] = []
+
 
 ## Настройка Дистрибутива ######################################################
 ##

@@ -237,9 +237,9 @@ define gui.slot_button_text_idle_color = gui.idle_small_color
 define gui.slot_button_text_selected_idle_color = gui.selected_color
 define gui.slot_button_text_selected_hover_color = gui.hover_color
 
-## Ширина и высота миниатюры, используемой слотом сохранения.
-define config.thumbnail_width = 384
-define config.thumbnail_height = 216
+## Отключаем миниатюры сейвов, чтобы Ren'Py не сохранял скриншот в слот.
+define config.thumbnail_width = 0
+define config.thumbnail_height = 0
 
 ## Количество колонок и рядов в таблице слотов.
 define gui.file_slot_cols = 3
