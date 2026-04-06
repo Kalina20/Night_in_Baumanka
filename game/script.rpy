@@ -25,6 +25,11 @@ default current_cabinet = None
 default success_flag = False
 default found_story_scene_2_item = False
 default failed_story_scene_2_search = False
+default story_scene_1_match_selected_left = None
+default story_scene_1_match_selected_right = None
+default story_scene_1_match_done = []
+default story_scene_1_match_success = False
+default story_scene_1_match_failed = False
 default story_scene_4_squats = 0
 default story_scene_4_time_left = 30
 default story_scene_4_is_down = False
@@ -60,6 +65,63 @@ init python:
         store.story_scene_4_is_down = False
         store.story_scene_4_minigame_won = False
         store.story_scene_4_minigame_lost = False
+
+    def reset_story_scene_1_match_game():
+        store.story_scene_1_match_selected_left = None
+        store.story_scene_1_match_selected_right = None
+        store.story_scene_1_match_done = []
+        store.story_scene_1_match_success = False
+        store.story_scene_1_match_failed = False
+
+    def story_scene_1_select_left(item_id):
+        if item_id in store.story_scene_1_match_done:
+            return
+
+        store.story_scene_1_match_selected_left = item_id
+
+        if store.story_scene_1_match_selected_right is not None:
+            story_scene_1_try_match()
+        else:
+            renpy.restart_interaction()
+
+    def story_scene_1_select_right(item_id):
+        if item_id in store.story_scene_1_match_done:
+            return
+
+        store.story_scene_1_match_selected_right = item_id
+
+        if store.story_scene_1_match_selected_left is not None:
+            story_scene_1_try_match()
+        else:
+            renpy.restart_interaction()
+
+    def story_scene_1_try_match():
+        correct_pairs = {
+            "images/or.jpg": "ИЛИ",
+            "images/xor.jpg": "XOR",
+            "images/imp.jpg": "->",
+        }
+
+        left = store.story_scene_1_match_selected_left
+        right = store.story_scene_1_match_selected_right
+
+        if left is None or right is None:
+            return
+
+        if correct_pairs.get(left) == right:
+            if left not in store.story_scene_1_match_done:
+                store.story_scene_1_match_done.append(left)
+            if right not in store.story_scene_1_match_done:
+                store.story_scene_1_match_done.append(right)
+
+            if len(store.story_scene_1_match_done) == 6:
+                store.story_scene_1_match_success = True
+        else:
+            store.story_scene_1_match_failed = True
+
+        store.story_scene_1_match_selected_left = None
+        store.story_scene_1_match_selected_right = None
+        renpy.restart_interaction()
 
     def story_scene_4_press_down():
         if store.story_scene_4_minigame_won or store.story_scene_4_minigame_lost:
@@ -212,9 +274,17 @@ label finish_cabinet_scene:
 # История Лычкова (поздравляет с успешной защитой)
 label story_scene_1:
     $ ui_unlocked = False
-    scene bg room
-    show lichkov normal
+    scene expression Transform("images/doska.jpg", size=(1920, 1080))
+    show lichkov normal at Position(xpos=0.84, ypos=1.0)
     p1 "Я все еще не верю, что мы действительно дошли до этого дня."
+    p1 "Раз уж мы у доски, давай быстро проверим базу."
+    p1 "Соедини каждый пример с правильным ответом."
+    $ reset_story_scene_1_match_game()
+    call screen story_scene_1_match_game
+    if story_scene_1_match_success:
+        p1 "Все верно. Значит, не зря мы столько лет сидели в этих аудиториях."
+    else:
+        p1 "Нет, так не пойдет. Тут не все совпало правильно."
     jump finish_cabinet_scene
 
 # История Недаша (найти предмет)
