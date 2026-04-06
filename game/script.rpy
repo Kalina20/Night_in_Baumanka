@@ -263,6 +263,24 @@ label base_room:
 #     hide k normal
 #     return
 
+label show_beer(count):    
+    python:
+        positions = [(0.47, 0.55), (0.53, 0.55), (0.41, 0.55), (0.59, 0.55)]
+        beer_count = min(count, len(positions))
+
+        for index in range(beer_count + 1):
+            if index == 0:
+                renpy.show("bubble", at_list=[Transform(xalign=0.5, yalign=0.6, xzoom=0.45, yzoom=0.6)], tag="bubble_i")
+            else:
+                xpos, ypos = positions[index-1]
+                renpy.show(
+                    "beer",
+                    at_list=[Transform(xalign=xpos, yalign=ypos, zoom=0.15)],
+                    tag="beer_%d" % index,
+                )
+        renpy.with_statement(Dissolve(2.0))
+    return
+
 label finish_cabinet_scene:
     if current_cabinet and current_cabinet not in visited_cabinets:
         $ visited_cabinets.append(current_cabinet)
@@ -299,16 +317,25 @@ label story_scene_2:
     $ renpy.pause(1.0, hard=True)
     show nedash elder with Dissolve(2.0)
     $ renpy.pause(1.0, hard=True)
-    p2 "Если честно, я зашел сюда просто перевести дух."
+    p2 "Приветсвую вас, о юные дарования!"
+    a "Вячеслав Михайлович?!"
+    p2 "А кто же еще, ахахахахха! Поздравляю вас с успешной защитой, хвала фильтру Баттерворта! Вы действительно заслужиили отдых."
+    p2 "Должен сказать, я наслышан о вашей затее, но мне нужна ваша помощь. Понимаете, годы уже не те,
+    и зрение мое меня подводит."
+    p2 "Помогите мне отыскать запоминающее устройство с НИРСами студентов, и я укажу вам путь к жидкому золоту."
     $ found_story_scene_2_item = False
     $ failed_story_scene_2_search = False
     call screen story_scene_2_search
     if found_story_scene_2_item:
-        p2 "Нашел. Значит, здесь действительно кто-то был до нас."
+        p2 "Вот это я понимаю студенты! Сразу видно, что вы за киллометр можете углядеть самое правильное управленческое решение!"
+        p2 "Что ж, значит защиты НИРСов пройдут по расписанию,
+        а вы, ребятки, можете наслаждаться вечером. Держите!"
+        call show_beer(2)
+        d "Вам спасибо, Вячеслав Михайлович!"
         $ success_flag = True
     elif failed_story_scene_2_search:
-        p2 "Не нашли... Значит, я либо ошибся, либо мы упустили что-то важное."
-    p2 "Но теперь уже хочется понять, кто еще бродит по этому этажу."
+        p2 "Не нашли... опять на кафедре будут ругаться. Ну, ребятки, что-то в сон меня потянуло, а вы идите,
+        может, поможете кому-то помоложе."
     jump finish_cabinet_scene
 
 # История Семенцова (чинит проводку)
