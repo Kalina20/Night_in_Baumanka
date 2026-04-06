@@ -1,7 +1,7 @@
 define e = Character('я', color="#ffffff")
 define i = Character('Иван Писарев', color="#db4010")
 define a = Character('Алексей Калиниченко', color="#559d0d")
-define d = Character('Даниил Перекосов', color="#1c3ace")
+define d = Character('Даниил Перекосов', color="#8d9ce9")
 define k = Character('Константин Горшков', color="#e4e815")
 
 define p1 = Character("Лычков Игорь Игоревич", color="#dddddd")
@@ -106,13 +106,13 @@ label vvedenie:
     "Эта история началась много лет назад..."
     "Несколько влиятельных людей по счастливой случайности оказались в одном университете, и даже в одной группе..."
     "Они были настолько разными, что даже не могли представить, что у них может быть что-то общее..."
-    show i normal at Position(xpos=0.1, ypos=1.0)
+    show i normal at Position(xpos=0.1, ypos=1.0) with dissolve
     "Анимешник..."
-    show a normal at Position(xpos=0.3, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0) with dissolve
     "Футболист..."
-    show d normal at Position(xpos=0.6, ypos=1.0)
+    show d normal at Position(xpos=0.6, ypos=1.0) with dissolve
     "Нефор..."
-    show k normal at Position(xpos=0.9, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0) with dissolve
     "Саратовец..."
     "Но, несмотря на все различия, они стали друзьями..."
     "Их называли {color=#ff5555}Ремонт{/color}..."
@@ -147,9 +147,27 @@ label shkaf_transition:
     $ renpy.pause()
     i "Не понял юмора..."
     a "Приехали..."
-    hide empty_chest
+    hide empty_chest with dissolve
     hide shkaf_darken
-    k "Надо разобраться"
+    i "Этот шкаф лет сто никто не открывал, как так вышло?!"
+    d "Так не бывает, тут какие-то тюбики явно постарались!"
+    k "Может, беский?"
+    d "Может и он..."
+    a "Эй, тут какая-то записка, кажется, с русскими буквами."
+    show expression Solid("#0008") as shkaf_darken onlayer master
+    show letter:
+        xalign 0.5
+        yalign 0.5
+        zoom 0.7
+        yoffset -100
+    with dissolve
+    $ renpy.pause()
+    a "Прочтите кто-нибудь!"
+    $ renpy.pause()
+    hide letter with dissolve
+    hide shkaf_darken
+    k "У нас в Саратове за такие приколы ебучку сносят!"
+    i "Кто бы это ни был, мы до него доберемся!"
     jump base_room
 
 label base_room:
