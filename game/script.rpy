@@ -315,9 +315,12 @@ label story_scene_2:
 label story_scene_3:
     $ ui_unlocked = False
     scene bg room
-    show semens cyborg
+    show semens cyborg at Position(xpos=0.18, ypos=1.0)
     p3 "Тишина в корпусе какая-то слишком подозрительная."
     p3 "Такое чувство, будто здание ждет, когда мы сделаем следующий шаг."
+    p3 "Ладно, тогда совсем простой вопрос."
+    call screen story_scene_3_resistor_game
+    p3 "Да, это резистор. Значит, базу ты еще помнишь."
     jump finish_cabinet_scene
 
 # История Брызгалова (приседания)
