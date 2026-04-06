@@ -22,6 +22,7 @@ default visited_cabinets = []
 default ui_unlocked = False
 default cabinet_scene_map = {}
 default current_cabinet = None
+default found_story_scene_2_item = False
 
 init python:
     def ensure_cabinet_scene_map():
@@ -110,6 +111,9 @@ label story_scene_2:
     scene bg room
     show nedash elder
     p2 "Если честно, я зашел сюда просто перевести дух."
+    $ found_story_scene_2_item = False
+    call screen story_scene_2_search
+    p2 "Нашел. Значит, здесь действительно кто-то был до нас."
     p2 "Но теперь уже хочется понять, кто еще бродит по этому этажу."
     jump finish_cabinet_scene
 

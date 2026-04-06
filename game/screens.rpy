@@ -1682,6 +1682,32 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+## Мини-игра поиска предмета ####################################################
+screen story_scene_2_search():
+    modal True
+    zorder 1200
+
+    add Solid("#0006")
+
+    text "Найди предмет на картинке":
+        xalign 0.5
+        yalign 0.08
+        size 42
+        color "#ffffff"
+        outlines [(2, "#000000", 0, 0)]
+
+    if renpy.loadable("images/counter_bottle.png"):
+        add Transform("images/counter_bottle.png", zoom=0.05, xpos=1420, ypos=690)
+
+    button:
+        xpos 1410
+        ypos 680
+        xsize 90
+        ysize 170
+        background None
+        hover_background Solid("#ffffff22")
+        action [SetVariable("found_story_scene_2_item", True), Return()]
 ## Экран карты сюжета ###########################################################
 screen story_map():
 
