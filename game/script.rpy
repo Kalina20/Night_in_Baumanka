@@ -53,10 +53,21 @@ label start:
 label vvedenie:
     scene bg room
     play music "audio/Minecraft 1.mp3" fadein 1.0
+    # 
+    # show d normal at Position(xpos=0.6, ypos=1.0)
+    # show k normal at Position(xpos=0.9, ypos=1.0)
+    "Эта история началась много лет назад..."
+    "Несколько влиятельных людей по счастливой случайности оказались в одном университете, и даже в одной группе..."
+    "Они были настолько разными, что даже не могли представить, что у них может быть что-то общее..."
     show i normal at Position(xpos=0.1, ypos=1.0)
+    "Анимешник..."
     show a normal at Position(xpos=0.3, ypos=1.0)
+    "Футболист..."
     show d normal at Position(xpos=0.6, ypos=1.0)
+    "Нефор..."
     show k normal at Position(xpos=0.9, ypos=1.0)
+    "Саратовец..."
+    "Но, несмотря на все различия, они стали друзьями и вместе прошли через огонь и воду..."
     "И вот наша дружная компания сдала выпускные квалификационные работы на отлично"
     jump shkaf_transition
 
