@@ -775,3 +775,115 @@ screen story_scene_8_formula_game():
                 add Transform("images/Alexey/alex bag.JPG", fit="contain", xsize=240, ysize=140, rotate=90):
                     align (0.5, 0.5)
 
+screen story_scene_4_minigame():
+    modal True
+    zorder 1200
+
+    $ state_text = "Положение: вниз" if story_scene_4_is_down else "Положение: вверх"
+    $ state_color = "#6ec1ff" if story_scene_4_is_down else "#ffffff"
+    $ down_bg = "#2b5cffaa" if story_scene_4_is_down else "#1d1d1daa"
+    $ up_bg = "#2fa34aaa" if not story_scene_4_is_down else "#1d1d1daa"
+    $ pose_image = "images/Ivan/van brizg 1.JPG" if story_scene_4_is_down else "images/Ivan/van brizg 2.JPG"
+
+    if story_scene_4_minigame_won or story_scene_4_minigame_lost:
+        timer 0.01 action Return()
+    else:
+        timer 1.0 repeat True action Function(story_scene_4_tick)
+
+    key "K_s" action Function(story_scene_4_press_down)
+    key "K_w" action Function(story_scene_4_press_up)
+    key "s" action Function(story_scene_4_press_down)
+    key "w" action Function(story_scene_4_press_up)
+
+    add Transform(pose_image, fit="contain", xsize=700, ysize=980, rotate=90):
+        xalign 0.24
+        yalign 0.5
+
+    frame:
+        xpos 1130
+        ypos 260
+        xsize 760
+        ysize 560
+        background Solid("#111a")
+        padding (34, 30)
+
+        vbox:
+            spacing 18
+            xfill True
+
+            text "":
+                xalign 0.5
+                size 36
+                color "#ffffff"
+                outlines [(2, "#000000", 0, 0)]
+
+            text "Нажимай S, чтобы присесть, и W, чтобы встать. Нужно сделать 30 повторений за 30 секунд.":
+                xalign 0.5
+                text_align 0.5
+                size 24
+                color "#f0f0f0"
+
+            hbox:
+                spacing 55
+                xalign 0.5
+
+                vbox:
+                    spacing 10
+                    text "Осталось времени":
+                        size 24
+                        color "#cccccc"
+                    text "[story_scene_4_time_left] сек":
+                        size 38
+                        color "#ffd54a"
+
+                vbox:
+                    spacing 10
+                    text "Сделано приседаний":
+                        size 24
+                        color "#cccccc"
+                    text "[story_scene_4_squats] / 30":
+                        size 38
+                        color "#7dff7d"
+
+            bar value StaticValue(story_scene_4_squats, 30):
+                xalign 0.5
+                xmaximum 620
+                ymaximum 28
+
+            frame:
+                xalign 0.5
+                xsize 340
+                ysize 100
+                background Solid("#ffffff10")
+
+                text state_text:
+                    align (0.5, 0.5)
+                    size 32
+                    color state_color
+
+            hbox:
+                spacing 26
+                xalign 0.5
+
+                frame:
+                    xsize 150
+                    ysize 76
+                    background Solid(down_bg)
+
+                    text "S\nвниз":
+                        align (0.5, 0.5)
+                        text_align 0.5
+                        size 28
+                        color "#ffffff"
+
+                frame:
+                    xsize 150
+                    ysize 76
+                    background Solid(up_bg)
+
+                    text "W\nвверх":
+                        align (0.5, 0.5)
+                        text_align 0.5
+                        size 28
+                        color "#ffffff"
+
