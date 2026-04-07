@@ -382,13 +382,13 @@ label vvedenie:
     "Эта история началась много лет назад..."
     "Несколько влиятельных людей по счастливой случайности оказались в одном университете, и даже в одной группе..."
     "Они были настолько разными, что даже не могли представить, что у них может быть что-то общее..."
-    show i normal at Position(xpos=0.1, ypos=1.0) with dissolve
+    show ivan normal at Position(xpos=0.1, ypos=1.0) with dissolve
     "Анимешник..."
-    show a normal at Position(xpos=0.3, ypos=1.0) with dissolve
+    show alexey normal at Position(xpos=0.3, ypos=1.0) with dissolve
     "Футболист..."
-    show d normal at Position(xpos=0.6, ypos=1.0) with dissolve
+    show daniil normal at Position(xpos=0.6, ypos=1.0) with dissolve
     "Нефор..."
-    show k normal at Position(xpos=0.9, ypos=1.0) with dissolve
+    show kostik normal at Position(xpos=0.9, ypos=1.0) with dissolve
     "Саратовец..."
     "Но, несмотря на все различия, они стали друзьями..."
     "Их называли {color=#ff5555}Ремонт{/color}..."
@@ -406,10 +406,10 @@ label vvedenie:
 
 label shkaf_transition:
     scene bg cabinet_with_beer
-    show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.2, ypos=1.0)
-    show d normal at Position(xpos=0.3, ypos=1.0)
-    show k normal at Position(xpos=0.4, ypos=1.0)
+    show i laugh at Position(xpos=0.1, ypos=1.0)
+    show a happy at Position(xpos=0.2, ypos=1.0)
+    show d happy at Position(xpos=0.3, ypos=1.0)
+    show k laugh at Position(xpos=0.4, ypos=1.0)
     d "Ну, парни, хряпнем!"
     i "Хряпнем!"
     a "Хряпнем!"
