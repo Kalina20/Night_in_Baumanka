@@ -1731,7 +1731,7 @@ screen story_scene_1_match_game():
             spacing 24
             xfill True
 
-            text "Кликни на таблицу истинности, а затем на соответствующую ей функцию":
+            text "Соедини пример с правильным ответом":
                 xalign 0.5
                 size 38
                 color "#ffffff"
@@ -1739,11 +1739,11 @@ screen story_scene_1_match_game():
 
 
             hbox:
-                spacing 140
+                spacing 120
                 xalign 0.5
 
                 vbox:
-                    spacing 24
+                    spacing 18
                     for left_item in [
                         "images/or.jpg",
                         "images/xor.jpg",
@@ -1764,335 +1764,19 @@ screen story_scene_1_match_game():
                                 yalign 0.5
 
                 vbox:
-                    spacing 24
+                    spacing 18
                     for right_item in ["->", "ИЛИ", "XOR"]:
                         $ right_selected = story_scene_1_match_selected_right == right_item
                         $ right_done = right_item in story_scene_1_match_done
 
                         textbutton right_item:
                             xsize 320
-                            ysize 140
+                            ysize 86
                             text_size 30
                             text_color "#ffffff"
-                            text_xalign 0.5
-                            text_yalign 0.5
-                            text_textalign 0.5
                             background Solid("#2e7d32aa" if right_done else ("#c96d2acc" if right_selected else "#1d1d1dcc"))
                             hover_background Solid("#d98836dd" if not right_done else "#2e7d32cc")
                             action Function(story_scene_1_select_right, right_item)
-
-screen story_scene_3_resistor_game():
-    modal True
-    zorder 1200
-
-    frame:
-        xpos 1080
-        ypos 180
-        xsize 720
-        ysize 620
-        background Solid("#111a")
-        padding (30, 30)
-
-        vbox:
-            spacing 24
-            xfill True
-
-            text "Что изображено на картинке?":
-                xalign 0.5
-                size 36
-                color "#ffffff"
-                outlines [(2, "#000000", 0, 0)]
-
-            add Transform("images/resistor.jpg", fit="contain", xsize=560, ysize=320):
-                xalign 0.5
-
-            textbutton "резистор":
-                xalign 0.5
-                xsize 320
-                ysize 90
-                text_size 30
-                text_color "#ffffff"
-                text_xalign 0.5
-                text_yalign 0.5
-                text_textalign 0.5
-                background Solid("#2f7f44cc")
-                hover_background Solid("#3b9b56dd")
-                action Return()
-
-screen story_scene_12_note():
-    modal True
-    zorder 1200
-
-    text "Нажми на записку на столе":
-        xalign 0.5
-        yalign 0.1
-        size 36
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
-
-    button:
-        xpos 1180
-        ypos 610
-        xsize 210
-        ysize 150
-        background None
-        hover_background Solid("#ffffff22")
-        action Return()
-
-        add Transform("images/note_alt.png", fit="contain", xsize=210, ysize=150):
-            xalign 0.5
-            yalign 0.5
-
-screen story_scene_12_note_text():
-    modal True
-    zorder 1250
-
-    add Solid("#0008")
-
-    frame:
-        align (0.5, 0.5)
-        xsize 980
-        ysize 620
-        background Solid("#efe1bf")
-        padding (55, 45)
-
-        vbox:
-            spacing 30
-            xfill True
-
-            text "Записка":
-                xalign 0.5
-                size 40
-                color "#5c4024"
-
-            text "Ребятки я вас не дождался и ушел в новый поход. Но я хорошо знаю, что вы отличные студенты и хорошо учились). Так что забирайте свое пиво оно под столом. Удачи !":
-                xalign 0.5
-                text_align 0.0
-                size 30
-                color "#4a3420"
-                line_spacing 8
-
-            textbutton "Закрыть":
-                xalign 0.5
-                xsize 260
-                ysize 82
-                text_size 28
-                text_color "#ffffff"
-                text_xalign 0.5
-                text_yalign 0.5
-                text_textalign 0.5
-                background Solid("#7a5633")
-                hover_background Solid("#94683f")
-                action Return()
-
-screen story_scene_8_chain_game():
-    modal True
-    zorder 1200
-
-    $ all_slots_filled = all(story_scene_8_chain_assignments.values())
-
-    if story_scene_8_chain_success or story_scene_8_chain_failed:
-        timer 0.01 action Return()
-
-    frame:
-        xpos 980
-        ypos 170
-        xsize 820
-        ysize 680
-        background Solid("#111a")
-        padding (30, 30)
-
-        vbox:
-            spacing 24
-            xfill True
-
-            text "Собери электрическую цепь":
-                xalign 0.5
-                size 38
-                color "#ffffff"
-                outlines [(2, "#000000", 0, 0)]
-
-            text "Перетащи элементы снизу в слоты сверху. Проверка сработает, когда все 4 места будут заполнены.":
-                xalign 0.5
-                text_align 0.5
-                size 24
-                color "#e8e8e8"
-
-            draggroup:
-                drag:
-                    drag_name "slot_0"
-                    draggable False
-                    droppable True
-                    xpos 30
-                    ypos 120
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#243447cc")
-
-                        text "1":
-                            align (0.5, 0.5)
-                            size 34
-                            color "#ffffff"
-
-                drag:
-                    drag_name "slot_1"
-                    draggable False
-                    droppable True
-                    xpos 215
-                    ypos 120
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#243447cc")
-
-                        text "2":
-                            align (0.5, 0.5)
-                            size 34
-                            color "#ffffff"
-
-                drag:
-                    drag_name "slot_2"
-                    draggable False
-                    droppable True
-                    xpos 400
-                    ypos 120
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#243447cc")
-
-                        text "3":
-                            align (0.5, 0.5)
-                            size 34
-                            color "#ffffff"
-
-                drag:
-                    drag_name "slot_3"
-                    draggable False
-                    droppable True
-                    xpos 585
-                    ypos 120
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#243447cc")
-
-                        text "4":
-                            align (0.5, 0.5)
-                            size 34
-                            color "#ffffff"
-
-                drag:
-                    drag_name "source"
-                    draggable True
-                    dragged story_scene_8_chain_dragged
-                    xpos story_scene_8_chain_item_positions["source"][0]
-                    ypos story_scene_8_chain_item_positions["source"][1]
-                    $ source_image = story_scene_8_chain_item_image("source")
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#325c9ecc")
-
-                        if source_image:
-                            add Transform(source_image, fit="contain", xsize=135, ysize=88):
-                                align (0.5, 0.5)
-                        else:
-                            text story_scene_8_chain_item_label("source"):
-                                align (0.5, 0.5)
-                                size 26
-                                color "#ffffff"
-
-                drag:
-                    drag_name "wire"
-                    draggable True
-                    dragged story_scene_8_chain_dragged
-                    xpos story_scene_8_chain_item_positions["wire"][0]
-                    ypos story_scene_8_chain_item_positions["wire"][1]
-                    $ wire_image = story_scene_8_chain_item_image("wire")
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#2f7f44cc")
-
-                        if wire_image:
-                            add Transform(wire_image, fit="contain", xsize=135, ysize=88):
-                                align (0.5, 0.5)
-                        else:
-                            text story_scene_8_chain_item_label("wire"):
-                                align (0.5, 0.5)
-                                size 26
-                                color "#ffffff"
-
-                drag:
-                    drag_name "resistor"
-                    draggable True
-                    dragged story_scene_8_chain_dragged
-                    xpos story_scene_8_chain_item_positions["resistor"][0]
-                    ypos story_scene_8_chain_item_positions["resistor"][1]
-                    $ resistor_image = story_scene_8_chain_item_image("resistor")
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#7b4f9bcc")
-
-                        if resistor_image:
-                            add Transform(resistor_image, fit="contain", xsize=135, ysize=88):
-                                align (0.5, 0.5)
-                        else:
-                            text story_scene_8_chain_item_label("resistor"):
-                                align (0.5, 0.5)
-                                size 26
-                                color "#ffffff"
-
-                drag:
-                    drag_name "lamp"
-                    draggable True
-                    dragged story_scene_8_chain_dragged
-                    xpos story_scene_8_chain_item_positions["lamp"][0]
-                    ypos story_scene_8_chain_item_positions["lamp"][1]
-                    $ lamp_image = story_scene_8_chain_item_image("lamp")
-
-                    frame:
-                        xsize 165
-                        ysize 110
-                        background Solid("#8a6b24cc")
-
-                        if lamp_image:
-                            add Transform(lamp_image, fit="contain", xsize=135, ysize=88):
-                                align (0.5, 0.5)
-                        else:
-                            text story_scene_8_chain_item_label("lamp"):
-                                align (0.5, 0.5)
-                                size 26
-                                color "#ffffff"
-
-            textbutton "Проверить":
-                xalign 0.5
-                xsize 280
-                ysize 84
-                text_size 28
-                text_color "#ffffff"
-                text_xalign 0.5
-                text_yalign 0.5
-                text_textalign 0.5
-                background Solid("#2f7f44cc" if all_slots_filled else "#555555aa")
-                hover_background Solid("#3b9b56dd" if all_slots_filled else "#666666aa")
-                action Function(story_scene_8_check_chain)
-
-            if not all_slots_filled:
-                text "Сначала заполни все 4 слота.":
-                    xalign 0.5
-                    size 22
-                    color "#cccccc"
 
 screen story_scene_4_minigame():
     modal True
