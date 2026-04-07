@@ -117,23 +117,6 @@ init python:
             "slot_3": (585, 120),
         }
 
-    def story_scene_8_find_nearest_slot(x, y):
-        slot_positions = story_scene_8_chain_slot_positions()
-        nearest_slot = None
-        nearest_distance = None
-
-        for slot_id, (slot_x, slot_y) in slot_positions.items():
-            distance = abs(x - slot_x) + abs(y - slot_y)
-
-            if nearest_distance is None or distance < nearest_distance:
-                nearest_distance = distance
-                nearest_slot = slot_id
-
-        if nearest_distance is not None and nearest_distance <= 150:
-            return nearest_slot
-
-        return None
-
     def reset_story_scene_8_chain_game():
         store.story_scene_8_chain_assignments = {
             "slot_0": None,
@@ -165,11 +148,7 @@ init python:
                 assignments[slot_id] = None
                 break
 
-        current_x = int(getattr(drag, "x", start_positions[item_id][0]))
-        current_y = int(getattr(drag, "y", start_positions[item_id][1]))
-        slot_id = story_scene_8_find_nearest_slot(current_x, current_y)
-
-        if slot_id is None:
+        if drop is None or drop.drag_name not in slot_positions:
             if previous_slot:
                 store.story_scene_8_chain_assignments[previous_slot] = item_id
                 store.story_scene_8_chain_item_positions[item_id] = slot_positions[previous_slot]
@@ -178,6 +157,7 @@ init python:
             renpy.restart_interaction()
             return
 
+        slot_id = drop.drag_name
         replaced_item = assignments.get(slot_id)
 
         if replaced_item and replaced_item != item_id:
