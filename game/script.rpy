@@ -35,6 +35,13 @@ default story_scene_8_chain_item_positions = {}
 default story_scene_8_chain_failed = False
 default story_scene_8_chain_success = False
 default story_scene_8_chain_checked = False
+default story_scene_8_formula_items = []
+default story_scene_8_formula_player_x = 360
+default story_scene_8_formula_score = 0
+default story_scene_8_formula_mistakes = 0
+default story_scene_8_formula_won = False
+default story_scene_8_formula_lost = False
+default story_scene_8_formula_ticks = 0
 default story_scene_10_choice = None
 default story_scene_4_squats = 0
 default story_scene_4_time_left = 30
@@ -184,6 +191,90 @@ init python:
             for index in range(4)
         )
         store.story_scene_8_chain_failed = not store.story_scene_8_chain_success
+        renpy.restart_interaction()
+
+    def reset_story_scene_8_formula_game():
+        store.story_scene_8_formula_items = []
+        store.story_scene_8_formula_player_x = 760
+        store.story_scene_8_formula_score = 0
+        store.story_scene_8_formula_mistakes = 0
+        store.story_scene_8_formula_won = False
+        store.story_scene_8_formula_lost = False
+        store.story_scene_8_formula_ticks = 0
+
+    def story_scene_8_formula_move_left():
+        if store.story_scene_8_formula_won or store.story_scene_8_formula_lost:
+            return
+        store.story_scene_8_formula_player_x = max(20, store.story_scene_8_formula_player_x - 120)
+        renpy.restart_interaction()
+
+    def story_scene_8_formula_move_right():
+        if store.story_scene_8_formula_won or store.story_scene_8_formula_lost:
+            return
+        store.story_scene_8_formula_player_x = min(1460, store.story_scene_8_formula_player_x + 120)
+        renpy.restart_interaction()
+
+    def story_scene_8_formula_spawn():
+        pool = [
+            {"text": "F = ma", "correct": True},
+            {"text": "U = IR", "correct": True},
+            {"text": "E = mc^2", "correct": True},
+            {"text": "P = UI", "correct": True},
+            {"text": "p = mv", "correct": True},
+            {"text": "A = Fs", "correct": True},
+            {"text": "Q = I^2Rt", "correct": True},
+            {"text": "F = mЯу", "correct": False},
+            {"text": "U = картошка", "correct": False},
+            {"text": "a = pain", "correct": False},
+            {"text": "p = печенька", "correct": False},
+            {"text": "E = anime", "correct": False},
+            {"text": "I = nya", "correct": False},
+            {"text": "R = рулет", "correct": False},
+            {"text": "P = пельмени", "correct": False},
+        ]
+        item = renpy.random.choice(pool).copy()
+        item["x"] = renpy.random.randint(20, 1460)
+        item["y"] = 0
+        store.story_scene_8_formula_items.append(item)
+
+    def story_scene_8_formula_tick():
+        if store.story_scene_8_formula_won or store.story_scene_8_formula_lost:
+            return
+
+        store.story_scene_8_formula_ticks += 1
+
+        if store.story_scene_8_formula_ticks % 3 == 1:
+            story_scene_8_formula_spawn()
+
+        updated_items = []
+
+        for item in store.story_scene_8_formula_items:
+            item["y"] += 40
+
+            caught = item["y"] >= 640 and abs(item["x"] - store.story_scene_8_formula_player_x) <= 120
+            missed = item["y"] > 760
+
+            if caught:
+                if item["correct"]:
+                    store.story_scene_8_formula_score += 1
+                else:
+                    store.story_scene_8_formula_mistakes += 1
+                continue
+
+            if missed:
+                if item["correct"]:
+                    store.story_scene_8_formula_mistakes += 1
+                continue
+
+            updated_items.append(item)
+
+        store.story_scene_8_formula_items = updated_items
+
+        if store.story_scene_8_formula_score >= 5:
+            store.story_scene_8_formula_won = True
+        elif store.story_scene_8_formula_mistakes >= 3:
+            store.story_scene_8_formula_lost = True
+
         renpy.restart_interaction()
 
     def reset_story_scene_10_choice_game():
@@ -538,7 +629,16 @@ label story_scene_8:
     p8 "Если открыть все кабинеты подряд, мы точно соберем полную картину."
     p8 "Главное, чтобы картина потом не собрала нас."
     show byankin happy
-    p8 "Хотя, с другой стороны, если мы уже здесь, то может быть"
+    p8 "Хотя, с другой стороны, если мы уже здесь, то давай проверим, кто из нас еще помнит физику."
+    p8 "Лови только правильные формулы и не трогай всякий бред."
+    $ reset_story_scene_8_formula_game()
+    hide byankin happy
+    call screen story_scene_8_formula_game
+    show byankin happy
+    if story_scene_8_formula_won:
+        p8 "Вот это уже разговор. Формулы летят, а ты даже не моргнул."
+    else:
+        p8 "Нет, физика так не делается. Картошку в закон Ома мы пока не подставляем."
     jump finish_cabinet_scene
 
 # История Тихомировой (нашла куртку на кафедре)

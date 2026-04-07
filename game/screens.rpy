@@ -1930,6 +1930,90 @@ screen story_scene_10_choice_game():
                         hover_background Solid("#8b67e0dd")
                         action Function(story_scene_10_pick_choice, choice_id)
 
+screen story_scene_8_formula_game():
+    modal True
+    zorder 1200
+
+    if story_scene_8_formula_won or story_scene_8_formula_lost:
+        timer 0.01 action Return()
+    else:
+        timer 0.35 repeat True action Function(story_scene_8_formula_tick)
+
+    key "K_LEFT" action Function(story_scene_8_formula_move_left)
+    key "K_RIGHT" action Function(story_scene_8_formula_move_right)
+    key "a" action Function(story_scene_8_formula_move_left)
+    key "d" action Function(story_scene_8_formula_move_right)
+
+    add Solid("#10141cee")
+
+    frame:
+        xpos 0
+        ypos 0
+        xsize 1920
+        ysize 1080
+        background None
+        padding (40, 30)
+
+        text "Мини-игра: Поймай формулу":
+            xalign 0.5
+            ypos 10
+            size 38
+            color "#ffffff"
+            outlines [(2, "#000000", 0, 0)]
+
+        text "Лови только правильные формулы. Управление: A/D или стрелки.":
+            xalign 0.5
+            ypos 60
+            size 24
+            color "#dddddd"
+
+        hbox:
+            xpos 620
+            ypos 105
+            spacing 80
+
+            text "Поймано: [story_scene_8_formula_score] / 5":
+                size 28
+                color "#7dff7d"
+
+            text "Ошибки: [story_scene_8_formula_mistakes] / 3":
+                size 28
+                color "#ff8c8c"
+
+        fixed:
+            xpos 120
+            ypos 170
+            xsize 1680
+            ysize 760
+
+            add Solid("#1b2330")
+
+            for item in story_scene_8_formula_items:
+                frame:
+                    xpos item["x"]
+                    ypos item["y"]
+                    xsize 160
+                    ysize 56
+                    background Solid("#3d6ec9dd")
+
+                    text item["text"]:
+                        align (0.5, 0.5)
+                        size 24
+                        color "#ffffff"
+                        text_align 0.5
+
+            frame:
+                xpos story_scene_8_formula_player_x
+                ypos 660
+                xsize 220
+                ysize 70
+                background Solid("#3d6ec9ee")
+
+                text "лови":
+                    align (0.5, 0.5)
+                    size 30
+                    color "#ffffff"
+
 screen story_scene_8_chain_game():
     modal True
     zorder 1200
