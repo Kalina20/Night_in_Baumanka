@@ -243,13 +243,13 @@ init python:
 
         store.story_scene_8_formula_ticks += 1
 
-        if store.story_scene_8_formula_ticks % 3 == 1:
+        if store.story_scene_8_formula_ticks % 5 == 1:
             story_scene_8_formula_spawn()
 
         updated_items = []
 
         for item in store.story_scene_8_formula_items:
-            item["y"] += 40
+            item["y"] += 25
 
             caught = item["y"] >= 640 and abs(item["x"] - store.story_scene_8_formula_player_x) <= 120
             missed = item["y"] > 760
