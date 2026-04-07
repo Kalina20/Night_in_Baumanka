@@ -1882,6 +1882,54 @@ screen story_scene_12_note_text():
                 hover_background Solid("#94683f")
                 action Return()
 
+screen story_scene_10_choice_game():
+    modal True
+    zorder 1200
+
+    if story_scene_10_choice is not None:
+        timer 0.01 action Return()
+
+    frame:
+        xpos 980
+        ypos 180
+        xsize 820
+        ysize 620
+        background Solid("#111a")
+        padding (30, 30)
+
+        vbox:
+            spacing 28
+            xfill True
+
+            text "Выбери одну картинку":
+                xalign 0.5
+                size 38
+                color "#ffffff"
+                outlines [(2, "#000000", 0, 0)]
+
+            text "Пока вместо картинок стоят цифры.":
+                xalign 0.5
+                text_align 0.5
+                size 24
+                color "#dddddd"
+
+            grid 2 2:
+                xalign 0.5
+                spacing 26
+
+                for choice_id in ["1", "2", "3", "4"]:
+                    textbutton choice_id:
+                        xsize 260
+                        ysize 170
+                        text_size 54
+                        text_color "#ffffff"
+                        text_xalign 0.5
+                        text_yalign 0.5
+                        text_textalign 0.5
+                        background Solid("#6d4cc2cc")
+                        hover_background Solid("#8b67e0dd")
+                        action Function(story_scene_10_pick_choice, choice_id)
+
 screen story_scene_8_chain_game():
     modal True
     zorder 1200

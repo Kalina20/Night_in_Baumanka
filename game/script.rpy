@@ -35,6 +35,7 @@ default story_scene_8_chain_item_positions = {}
 default story_scene_8_chain_failed = False
 default story_scene_8_chain_success = False
 default story_scene_8_chain_checked = False
+default story_scene_10_choice = None
 default story_scene_4_squats = 0
 default story_scene_4_time_left = 30
 default story_scene_4_is_down = False
@@ -183,6 +184,13 @@ init python:
             for index in range(4)
         )
         store.story_scene_8_chain_failed = not store.story_scene_8_chain_success
+        renpy.restart_interaction()
+
+    def reset_story_scene_10_choice_game():
+        store.story_scene_10_choice = None
+
+    def story_scene_10_pick_choice(choice_id):
+        store.story_scene_10_choice = choice_id
         renpy.restart_interaction()
 
     def story_scene_1_select_left(item_id):
@@ -552,6 +560,10 @@ label story_scene_10:
     show kadira normal
     p10 "Хочешь совет? Не заходи в кабинет, если тебе уже не по себе."
     p10 "Обычно интуиция ошибается реже, чем расписание."
+    p10 "Ладно, тогда выбери одну картинку."
+    $ reset_story_scene_10_choice_game()
+    call screen story_scene_10_choice_game
+    p10 "Значит, ты выбрал вариант [story_scene_10_choice]. Запомню."
     jump finish_cabinet_scene
 
 # История Выхованца (хочет чтобы проверили гост)
