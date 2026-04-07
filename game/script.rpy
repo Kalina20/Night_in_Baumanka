@@ -30,6 +30,11 @@ default story_scene_1_match_selected_right = None
 default story_scene_1_match_done = []
 default story_scene_1_match_success = False
 default story_scene_1_match_failed = False
+default story_scene_8_chain_assignments = {}
+default story_scene_8_chain_item_positions = {}
+default story_scene_8_chain_failed = False
+default story_scene_8_chain_success = False
+default story_scene_8_chain_checked = False
 default story_scene_4_squats = 0
 default story_scene_4_time_left = 30
 default story_scene_4_is_down = False
@@ -72,6 +77,133 @@ init python:
         store.story_scene_1_match_done = []
         store.story_scene_1_match_success = False
         store.story_scene_1_match_failed = False
+
+    def story_scene_8_chain_start_positions():
+        return {
+            "lamp": (30, 360),
+            "resistor": (215, 360),
+            "source": (400, 360),
+            "wire": (585, 360),
+        }
+
+    def story_scene_8_chain_item_label(item_id):
+        labels = {
+            "source": "источник",
+            "wire": "провод",
+            "resistor": "резистор",
+            "lamp": "лампа",
+        }
+        return labels[item_id]
+
+    def story_scene_8_chain_item_image(item_id):
+        image_variants = {
+            "source": ["images/source.png", "images/source.jpg", "images/battery.png", "images/battery.jpg"],
+            "wire": ["images/wire.png", "images/wire.jpg"],
+            "resistor": ["images/resistor.jpg", "images/resistor.png"],
+            "lamp": ["images/lamp.png", "images/lamp.jpg"],
+        }
+
+        for image_path in image_variants[item_id]:
+            if renpy.loadable(image_path):
+                return image_path
+
+        return None
+
+    def story_scene_8_chain_slot_positions():
+        return {
+            "slot_0": (30, 120),
+            "slot_1": (215, 120),
+            "slot_2": (400, 120),
+            "slot_3": (585, 120),
+        }
+
+    def story_scene_8_find_nearest_slot(x, y):
+        slot_positions = story_scene_8_chain_slot_positions()
+        nearest_slot = None
+        nearest_distance = None
+
+        for slot_id, (slot_x, slot_y) in slot_positions.items():
+            distance = abs(x - slot_x) + abs(y - slot_y)
+
+            if nearest_distance is None or distance < nearest_distance:
+                nearest_distance = distance
+                nearest_slot = slot_id
+
+        if nearest_distance is not None and nearest_distance <= 150:
+            return nearest_slot
+
+        return None
+
+    def reset_story_scene_8_chain_game():
+        store.story_scene_8_chain_assignments = {
+            "slot_0": None,
+            "slot_1": None,
+            "slot_2": None,
+            "slot_3": None,
+        }
+        store.story_scene_8_chain_item_positions = story_scene_8_chain_start_positions()
+        store.story_scene_8_chain_failed = False
+        store.story_scene_8_chain_success = False
+        store.story_scene_8_chain_checked = False
+
+    def story_scene_8_chain_dragged(drags, drop):
+        drag = drags[0]
+        item_id = drag.drag_name
+        assignments = store.story_scene_8_chain_assignments
+        start_positions = story_scene_8_chain_start_positions()
+        slot_positions = story_scene_8_chain_slot_positions()
+        previous_slot = None
+
+        if store.story_scene_8_chain_failed or store.story_scene_8_chain_success:
+            return
+
+        store.story_scene_8_chain_checked = False
+
+        for slot_id, assigned_item in assignments.items():
+            if assigned_item == item_id:
+                previous_slot = slot_id
+                assignments[slot_id] = None
+                break
+
+        current_x = int(getattr(drag, "x", start_positions[item_id][0]))
+        current_y = int(getattr(drag, "y", start_positions[item_id][1]))
+        slot_id = story_scene_8_find_nearest_slot(current_x, current_y)
+
+        if slot_id is None:
+            if previous_slot:
+                store.story_scene_8_chain_assignments[previous_slot] = item_id
+                store.story_scene_8_chain_item_positions[item_id] = slot_positions[previous_slot]
+            else:
+                store.story_scene_8_chain_item_positions[item_id] = start_positions[item_id]
+            renpy.restart_interaction()
+            return
+
+        replaced_item = assignments.get(slot_id)
+
+        if replaced_item and replaced_item != item_id:
+            store.story_scene_8_chain_item_positions[replaced_item] = start_positions[replaced_item]
+
+        assignments[slot_id] = item_id
+        store.story_scene_8_chain_item_positions[item_id] = slot_positions[slot_id]
+
+        renpy.restart_interaction()
+        return
+
+    def story_scene_8_check_chain():
+        assignments = store.story_scene_8_chain_assignments
+        correct_order = ["source", "wire", "resistor", "lamp"]
+
+        if not all(assignments.values()):
+            renpy.notify("Сначала расставь все элементы по местам.")
+            return
+
+        store.story_scene_8_chain_checked = True
+        store.story_scene_8_chain_success = all(
+            assignments["slot_%d" % index] == correct_order[index]
+            for index in range(4)
+        )
+        store.story_scene_8_chain_failed = not store.story_scene_8_chain_success
+        renpy.restart_interaction()
 
     def story_scene_1_select_left(item_id):
         if item_id in store.story_scene_1_match_done:
@@ -418,7 +550,14 @@ label story_scene_8:
     p8 "Если открыть все кабинеты подряд, мы точно соберем полную картину."
     p8 "Главное, чтобы картина потом не собрала нас."
     show byankin happy
-    p8 "Хотя, с другой стороны, если мы уже здесь, то может быть"
+    p8 "Хотя, с другой стороны, если мы уже здесь, то может быть соберем хотя бы нормальную цепь."
+    p8 "Перетащи элементы в слоты сверху. Когда расставишь все, посмотрим, правильно или нет."
+    $ reset_story_scene_8_chain_game()
+    call screen story_scene_8_chain_game
+    if story_scene_8_chain_success:
+        p8 "Вот теперь ток пошел как надо. Красота."
+    else:
+        p8 "Нет, так цепь не собирают. Тут что-то явно пошло не туда."
     jump finish_cabinet_scene
 
 # История Тихомировой (нашла куртку на кафедре)
@@ -456,5 +595,9 @@ label story_scene_12:
     scene bg room
     p12 "В этом месте слишком много совпадений, чтобы считать их случайностью."
     p12 "Если мы дошли сюда вместе, значит, назад дороги уже не будет."
+    p12 "На столе что-то лежит. Нажми на записку."
+    call screen story_scene_12_note
+    call screen story_scene_12_note_text
+    p12 "Значит, и правда кто-то оставил нам подсказку."
     jump finish_cabinet_scene
 
