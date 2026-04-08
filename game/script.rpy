@@ -562,26 +562,15 @@ label story_scene_1:
     d "Нет я не пойду идите *****"
     show d mad
     k "Игорь Игоревич, будет отвечать Даниил Перекосов!"
-    # Даня злой
     p1 "Ну что, Даниил, приступим?)"
     $ reset_story_scene_1_match_game()
-    hide i normal
-    hide i happy
-    hide i sad
-    hide a normal
-    hide a happy
-    hide a sad
-    hide a surprise
-    hide k normal
-    hide k happy
-    hide k sad
+    hide i 
+    hide a 
+    hide k 
     show d mad at Position(xpos=0.19, ypos=1.0)
     call screen story_scene_1_match_game
-    show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.4, ypos=1.0)
-    show k normal at Position(xpos=0.2, ypos=1.0)
-    show d normal at Position(xpos=0.3, ypos=1.0)
     if story_scene_1_match_success:
+        show d laugh
         p1 "Даниил, вы большой молодец! Очень рад, что мои студенты не забыли мой курс!"
         p1 "Держите вашу награду, ребята! Отличного отдыха!"
         e "Спасибо, Игорь Игоревич, всего доброго!"
@@ -589,6 +578,7 @@ label story_scene_1:
         call show_beer(2)
         $ renpy.pause()
     else:
+        show d sad
         p1 "Даниил, к сожалению, не большой одной попытки в день("
         d "Игорь Игоревич, может, есть задание по прологу?"
         p1 "Конечно есть, но уже в следующий раз."
@@ -601,7 +591,7 @@ label story_scene_2:
     $ ui_unlocked = False
     scene bg room
     play music "nedash_smeshariki.mp3"
-    show i normal at Position(xpos=0.1, ypos=1.0)
+    show i normal at Position(xpos=0.10, ypos=1.0)
     show a normal at Position(xpos=0.3, ypos=1.0)
     show d normal at Position(xpos=0.7, ypos=1.0)
     show k normal at Position(xpos=0.9, ypos=1.0)
@@ -609,16 +599,28 @@ label story_scene_2:
     show nedash elder with Dissolve(2.0)
     $ renpy.pause(1.0, hard=True)
     p2 "Приветсвую вас, о юные дарования!"
+    show i surprise    
+    show d surprise 
+    show k surprise
+    show a surprise 
     a "Вячеслав Михайлович?!"
     p2 "А кто же еще, ахахахахха! Поздравляю вас с успешной защитой, хвала фильтру Баттерворта! Вы действительно заслужили отдых."
     p2 "Должен сказать, я наслышан о вашей затее, но мне нужна ваша помощь. Понимаете, годы уже не те,
     и зрение мое меня подводит."
+    show i normal    
+    show d normal 
+    show k normal
+    show a normal 
     i "Как мы можем вам помочь?"
     p2 "Помогите мне отыскать запоминающее устройство с НИРСами студентов, и я укажу вам путь к жидкому золоту."
     $ found_story_scene_2_item = False
     $ failed_story_scene_2_search = False
     call screen story_scene_2_search
     if found_story_scene_2_item:
+        show i happy    
+        show d happy 
+        show k happy
+        show a happy 
         p2 "Вот это я понимаю студенты! Сразу видно, что вы за киллометр можете углядеть самое правильное управленческое решение!"
         p2 "Что ж, значит защиты НИРСов пройдут по расписанию,
         а вы, ребятки, можете наслаждаться вечером. Держите!"
@@ -627,6 +629,10 @@ label story_scene_2:
         $ success_flag = True
         $ renpy.pause()
     elif failed_story_scene_2_search:
+        show i sad    
+        show d sad 
+        show k sad
+        show a sad 
         p2 "Не нашли... опять на кафедре будут ругаться. Ну, ребятки, что-то в сон меня потянуло, 
         а ваши напитки помогут мне лучше заснуть. А вы идите,
         может, поможете кому-то помоложе."
@@ -641,28 +647,44 @@ label story_scene_3:
     scene bg room
     play music "semens.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.3, ypos=1.0)
-    show d normal at Position(xpos=0.7, ypos=1.0)
-    show k normal at Position(xpos=0.9, ypos=1.0)
+    show a normal at Position(xpos=0.25, ypos=1.0)
+    show d normal at Position(xpos=0.40, ypos=1.0)
+    show k normal at Position(xpos=0.55, ypos=1.0)
     show semens cyborg at Position(xpos=0.8, ypos=1.0)
     p3 "О, здарова, парни!"
+    show i surprise  
+    show a surprise   
+    show d surprise 
+    show k surprise    
     k "Здравствуйте, а что это на вас надето?.."
     p3 "Ох, долгая история. Кароче, ко мне пришел студент третьего курса, весь в слезах, представляете?"
     p3 "Он попросил у меня помощи с курсовой работой по схемотехнике..."
+    show i normal  
+    show a think   
+    show d normal 
+    show k normal  
     a "А научный руководитель случайно не Левиев?"
     p3 "Как ты понял?!"
     a "Было дело."
+    show a normal
     p3 "Задание у него конечно интересное, но немножко сложноватое! Но, как видите, мы почти справились!
     Остался только мини-реактор!"
     p3 "Но, ребята, времени мало, поэтому действуем быстро! Кто пойдет отвечать?"
     a "Давате я что ли."
     p3 "Алексей, мы и так виделись целое лето на втором курсе, дайте другим ребятам проявить себя!"
+    show a sad
     p3 "Но учтите, задание будет не простым, курсовую работу все-таки делаем!"
+    show i laugh
     i "Ну пусть наш четырехглазый пойдет, он сказал что шарит в этой теме!"
+    show k angry
     k "Я убью тебя..."
+    show k happy
     k "Готов отвечать!"
     p3 "Тогда поехали!"
     call screen story_scene_3_resistor_game
+    show i happy
+    show a happy
+    show d happy
     p3 "Ничего себе, а ты разбираешься! Реально шаришь в этой теме."
     p3 "Ребята, вы не поверите, у нас и так на кафедре выпивки много, но сегодня заглянул очень важный человек и принес еще!"
     p3 "Он сказал, что это каких-то студентов, не ваше случайно?"
