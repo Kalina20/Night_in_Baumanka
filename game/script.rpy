@@ -565,7 +565,22 @@ label story_scene_1:
     # Даня злой
     p1 "Ну что, Даниил, приступим?)"
     $ reset_story_scene_1_match_game()
+    hide i normal
+    hide i happy
+    hide i sad
+    hide a normal
+    hide a happy
+    hide a sad
+    hide a surprise
+    hide k normal
+    hide k happy
+    hide k sad
+    show d mad at Position(xpos=0.19, ypos=1.0)
     call screen story_scene_1_match_game
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show a normal at Position(xpos=0.4, ypos=1.0)
+    show k normal at Position(xpos=0.2, ypos=1.0)
+    show d normal at Position(xpos=0.3, ypos=1.0)
     if story_scene_1_match_success:
         p1 "Даниил, вы большой молодец! Очень рад, что мои студенты не забыли мой курс!"
         p1 "Держите вашу награду, ребята! Отличного отдыха!"
