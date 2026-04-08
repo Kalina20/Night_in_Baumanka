@@ -1786,8 +1786,8 @@ screen story_scene_3_resistor_game():
     zorder 1200
 
     frame:
-        xpos 1080
-        ypos 180
+        xalign 0.5
+        yalign 0.5
         xsize 720
         ysize 620
         background Solid("#111a")

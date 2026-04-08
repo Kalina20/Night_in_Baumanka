@@ -682,10 +682,15 @@ label story_scene_3:
     show k happy
     k "Готов отвечать!"
     p3 "Тогда поехали!"
+    hide i laugh
+    hide a sad
+    hide d normal
+    show k happy at Position(xpos=0.2, ypos=1.0)
     call screen story_scene_3_resistor_game
-    show i happy
-    show a happy
-    show d happy
+    show i happy at Position(xpos=0.1, ypos=1.0)
+    show a happy at Position(xpos=0.25, ypos=1.0)
+    show d happy at Position(xpos=0.40, ypos=1.0)
+    show k happy at Position(xpos=0.55, ypos=1.0)
     p3 "Ничего себе, а ты разбираешься! Реально шаришь в этой теме."
     p3 "Ребята, вы не поверите, у нас и так на кафедре выпивки много, но сегодня заглянул очень важный человек и принес еще!"
     p3 "Он сказал, что это каких-то студентов, не ваше случайно?"
