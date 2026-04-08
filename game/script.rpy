@@ -705,7 +705,7 @@ label story_scene_3:
 # История Брызгалова (приседания)
 label story_scene_4:    
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/brizgalov.JPG", size=(1920, 1080))
     play music "brizg_smeshariki.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.3, ypos=1.0)
