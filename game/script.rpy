@@ -651,8 +651,16 @@ label story_scene_4:
     p4 "Вот это настрой, ну тогда показывай! Понимаю, уже время позднее, поэтому планку немножко снизим."
     p4 "На старт, внимание, марш!"
     $ reset_story_scene_4_minigame()
+    hide i normal
+    hide a normal
+    hide d normal
+    hide k normal
     hide brizg normal
     call screen story_scene_4_minigame
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0)
+    show d normal at Position(xpos=0.7, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
     show brizg normal
     if story_scene_4_minigame_won:
         p4 "Вот это темп. Сразу видно, что мои занятия не зря прошли! Молодец, молодец!"
@@ -907,7 +915,7 @@ screen story_scene_4_minigame():
     key "s" action Function(story_scene_4_press_down)
     key "w" action Function(story_scene_4_press_up)
 
-    add Transform(pose_image, fit="contain", xsize=700, ysize=980, rotate=90):
+    add Transform(pose_image, fit="contain", xsize=700, ysize=980, rotate=360):
         xalign 0.24
         yalign 0.5
 
