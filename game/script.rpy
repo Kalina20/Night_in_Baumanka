@@ -705,7 +705,7 @@ label story_scene_3:
 # История Брызгалова (приседания)
 label story_scene_4:    
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/brizgalov.JPG", size=(1920, 1080))
     play music "brizg_smeshariki.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.3, ypos=1.0)
@@ -983,7 +983,7 @@ label story_scene_11:
 # История Фёдорова (хз)
 label story_scene_12:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/fedorov.JPG", size=(1920, 1080))
     p12 "В этом месте слишком много совпадений, чтобы считать их случайностью."
     p12 "Если мы дошли сюда вместе, значит, назад дороги уже не будет."
     p12 "На столе что-то лежит. Нажми на записку."
