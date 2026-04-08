@@ -814,7 +814,7 @@ label story_scene_6:
 # История Левиева
 label story_scene_7:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/leviev.JPG", size=(1920, 1080))
     show i normal at Position(xpos=0.1, ypos=1.0)
     show d normal at Position(xpos=0.3, ypos=1.0)
     show a think at Position(xpos=0.2, ypos=1.0)    
@@ -839,7 +839,8 @@ label story_scene_7:
     show k surprise
     k "(шепотом) Мужики, я кажется что-то вижу..."
     show a think at Position(xpos=0.1, ypos=1.0) 
-    show leviev normal at Position(xpos=0.3, ypos=1.0)
+    show leviev normal at Position(xpos=0.80, ypos=1.0)
+    show shema at Transform(xalign=0.40, yalign=0.40, zoom=0.5)
     hide i 
     hide d
     hide k
@@ -876,7 +877,7 @@ label story_scene_7:
 # История Бянкина (синетзирует элемент)
 label story_scene_8:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/biankin.JPG", size=(1920, 1080))
     show byankin normal
     show i normal at Position(xpos=0.12, ypos=1.0)
     show a normal at Position(xpos=0.25, ypos=1.0)
@@ -907,14 +908,23 @@ label story_scene_8:
     d "Какие знания..."
     p8 "Студенты, вспомините все, чему я вас учил, и ловите только правильные формулы!"
     $ reset_story_scene_8_formula_game()
+    hide i surprise 
+    hide a surprise
+    hide d sad
+    hide k surprise
+    hide byankin normal
     call screen story_scene_8_formula_game
     show byankin happy
+    show i normal at Position(xpos=0.12, ypos=1.0)
+    show a normal at Position(xpos=0.25, ypos=1.0)
+    show d normal at Position(xpos=0.8, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
     if story_scene_8_formula_won:
         show byankin happy
-        show i happy
-        show a happy
-        show d happy
-        show k happy
+        show i happy at Position(xpos=0.12, ypos=1.0)
+        show a happy at Position(xpos=0.25, ypos=1.0)
+        show d happy at Position(xpos=0.8, ypos=1.0)
+        show k happy at Position(xpos=0.9, ypos=1.0)
         p8 "Кажется, получилось... Мы создали Бянкиниум!" 
         e "Феноменально..."       
         p8 "Что ж, ребята, вы оказались хорошими студентами, а хорошие студенты заслуживают награды!"
@@ -923,10 +933,10 @@ label story_scene_8:
         $ beer_plus = 3
         $ renpy.pause()
     else:
-        show i sad
-        show a sad
-        show d sad
-        show k sad
+        show i sad at Position(xpos=0.12, ypos=1.0)
+        show a sad at Position(xpos=0.25, ypos=1.0)
+        show d sad at Position(xpos=0.8, ypos=1.0)
+        show k sad at Position(xpos=0.9, ypos=1.0)
         p8 "Эх, плохие вы студенты! И чем вы только на моих лекциях занимались... Придется все самому делать, а вы уходите!"
     jump finish_cabinet_scene
 
