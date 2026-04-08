@@ -406,14 +406,16 @@ label vvedenie:
 
 label shkaf_transition:
     scene expression Transform("images/rooms/kaf.JPG", size=(1920, 1080))
+    play music "lil_krystalll_-_Air_Force_(SkySound.cc).mp3"
     show i laugh at Position(xpos=0.12, ypos=1.0)
     show a happy at Position(xpos=0.35, ypos=1.0)
     show d happy at Position(xpos=0.6, ypos=1.0)
     show k laugh at Position(xpos=0.85, ypos=1.0)
-    d "Ну, парни, хряпнем!"
+    d "Ну, парни, хряпнем!?"
     i "Хряпнем!"
     a "Хряпнем!"
     k "Хряпнем!"
+    $ renpy.pause(1.0, hard=True)
     show expression Solid("#0008") as shkaf_darken onlayer master
     show empty_chest:
         xalign 0.5
@@ -421,11 +423,12 @@ label shkaf_transition:
         zoom 0.7
         yoffset -100
     with dissolve
+    $ renpy.pause()
     show i surprise at Position(xpos=0.1, ypos=1.0)
     show a surprise at Position(xpos=0.2, ypos=1.0)
     show d surprise at Position(xpos=0.8, ypos=1.0)
     show k surprise at Position(xpos=0.9, ypos=1.0)
-    $ renpy.pause()
+    stop music fadeout 1.0
     i "Не понял юмора..."
     a "Приехали..."
     hide empty_chest with dissolve
@@ -955,7 +958,7 @@ label story_scene_8:
         p8 "Эх, плохие вы студенты! И чем вы только на моих лекциях занимались... Придется все самому делать, а вы уходите!"
     jump finish_cabinet_scene
 
-# История Кадырбаевой (хочет написать фанфик)
+# История Кадырбаевой (ГОТОВО)
 label story_scene_9:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/kaderbaeva.JPG", size=(1920, 1080))
@@ -986,7 +989,7 @@ label story_scene_9:
     show k happy
     p10 "Мальчики, я так рада вас видеть! Я уже думала, что вы не придете!"
     i "А как вы узнали?"
-    p10 "Ой, а ко мне забегала моя {color=#dce800}★{/color} преподавательница {color=#dce800}★{/color}, и предупредила о вашем скором прибытии! Еще и гостинцы отсавила! ☺︎"
+    p10 "Ой, а ко мне забегала моя {color=#dce800}★{/color} преподавательница {color=#dce800}★{/color}, и предупредила о вашем скором прибытии! Еще и гостинцы оставила! ☺︎"
     p10 "...Но сказала вам просто так их не отдавать... 😔"
     p10 "Мальчики, должна вам признаться, мне нужна ваша помощь... 👉👈"
     show i laugh
@@ -1014,14 +1017,21 @@ label story_scene_9:
     call screen story_scene_10_choice_game
     if story_scene_10_choice == "3":
         show kadira at Position(xpos=0.50, ypos=1.0)
-        p10 "Ты выбрал его... Значит, ты действительно меня понимаешь."
-        p10 "Пожалуй, это и есть мой счастливый финал."
-       
-        
+        p10 "Ты выбрал его... Значит, ты действительно меня понимаешь. 💞"
+        show i laugh
+        i "Я же говорил я в любви толк знаю!"
+        p10 "Как же я рада! ✨ Ну все, в следующий раз, когда его увижу, точно-точно признаюсь в своих чувствах! 🤩"
+        p10 "А это вам, мальчики! Спасибо, что помогли навести порядок в моем сердце! 😘"
+        call show_beer(2)
+        $ success_flag = True
+        i "Удачи тебе, подруга!"
+        $ renpy.pause() 
     else:
         show kadira  at Position(xpos=0.50, ypos=1.0)
-        p10 "Нет... Похоже, ты совсем не угадал."
-        p10 "Значит, счастливого финала сегодня не будет."
+        p10 "Мне кажется, ты не совсем меня понял... 😢"
+        show i sad
+        i "Неужели я посмотрел недостаточно романтиких аниме?!"
+        p10 "Простите, мальчики, мне нужно побыть одной... 😔"
     jump finish_cabinet_scene
         
 
