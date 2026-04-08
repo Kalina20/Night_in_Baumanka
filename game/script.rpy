@@ -479,14 +479,15 @@ label base_room:
 #     hide k normal
 #     return
 
-label show_beer(count):    
+label show_beer(count, offset = 0.0):    
     python:
-        positions = [(0.47, 0.55), (0.53, 0.55), (0.41, 0.55), (0.59, 0.55)]
+        positions = [(0.47 + offset, 0.55), (0.53 + offset, 0.55), 
+        (0.41 + offset, 0.55), (0.59 + offset, 0.55)]
         beer_count = min(count, len(positions))
 
         for index in range(beer_count + 1):
             if index == 0:
-                renpy.show("bubble", at_list=[Transform(xalign=0.5, yalign=0.6, xzoom=0.45, yzoom=0.6)], tag="bubble_i")
+                renpy.show("bubble", at_list=[Transform(xalign=0.5 + offset, yalign=0.6, xzoom=0.45, yzoom=0.6)], tag="bubble_i")
             else:
                 xpos, ypos = positions[index-1]
                 renpy.show(
@@ -621,7 +622,7 @@ label story_scene_3:
     p3 "Он сказал, что это каких-то студентов, не ваше случайно?"
     e "Наше! Наше!"
     p3 "Ну, у нас уже места под осциллографы из-за бухла нет, поэтому забирайте все! Заслужили!"
-    call show_beer(4)
+    call show_beer(4, 0.3)
     $ bottle_plus = 4
     $ success_flag = True
     jump finish_cabinet_scene
