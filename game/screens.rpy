@@ -422,6 +422,10 @@ screen main_menu():
 
     add gui.main_menu_background
 
+    add Transform("images/NightInBaumanka.png", fit="cover", xsize=1350, ysize=1080):
+        xpos 415
+        ypos 0
+
     ## Эта пустая рамка затеняет главное меню.
     frame:
         style "main_menu_frame"
@@ -1682,7 +1686,7 @@ screen story_scene_2_search():
     modal True
     zorder 1200
 
-    add Solid("#0006")
+    add Transform("images/rooms/hedish_2.JPG", size=(1920, 1080))
 
     textbutton "X":
         xalign 0.95
@@ -1693,20 +1697,13 @@ screen story_scene_2_search():
         hover_background Solid("#ffffff22")
         action [SetVariable("failed_story_scene_2_search", True), Return()]
 
-    text "Найди предмет на картинке":
-        xalign 0.5
-        yalign 0.08
-        size 42
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
-
     button:
-        xpos 1448
-        ypos 760
+        xpos 910
+        ypos 830
         xsize 36
         ysize 68
         background None
-        hover_background Solid("#ffffff22")
+        focus_mask None
         action [SetVariable("found_story_scene_2_item", True), Return()]
 
 screen story_scene_1_match_game():
