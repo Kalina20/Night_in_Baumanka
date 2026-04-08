@@ -1828,8 +1828,8 @@ screen story_scene_12_note():
         outlines [(2, "#000000", 0, 0)]
 
     button:
-        xpos 1180
-        ypos 610
+        xpos 1460
+        ypos 520
         xsize 210
         ysize 150
         background None
