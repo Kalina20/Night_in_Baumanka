@@ -675,7 +675,7 @@ label story_scene_3:
     p3 "Алексей, мы и так виделись целое лето на втором курсе, дайте другим ребятам проявить себя!"
     show a sad
     p3 "Но учтите, задание будет не простым, курсовую работу все-таки делаем!"
-    show i laugh
+    show i evil
     i "Ну пусть наш четырехглазый пойдет, он сказал что шарит в этой теме!"
     show k angry
     k "Я убью тебя..."
@@ -930,7 +930,7 @@ label story_scene_8:
         p8 "Что ж, ребята, вы оказались хорошими студентами, а хорошие студенты заслуживают награды!"
         call show_beer(3)
         $ success_flag = True
-        $ beer_plus = 3
+        $ bottle_plus = 3
         $ renpy.pause()
     else:
         show i sad at Position(xpos=0.12, ypos=1.0)
@@ -955,9 +955,19 @@ label story_scene_9:
 # История Кадырбаевой (хочет написать фанфик)
 label story_scene_10:
     $ ui_unlocked = False
-    scene bg room
-    show kadira normal
-    p10 "Хочешь совет? Не заходи в кабинет, если тебе уже не по себе."
+    scene expression Transform("images/rooms/kaderbaeva.JPG", size=(1920, 1080))
+    show i normal at Position(xpos=0.12, ypos=1.0)
+    show a think at Position(xpos=0.25, ypos=1.0)
+    show d normal at Position(xpos=0.8, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
+    a "У меня плохое предчувствие..."
+    $ renpy.pause(1.0, hard=True)
+    show kadira normal with Dissolve(2.0)
+    $ renpy.pause(1.0, hard=True)
+    show i 
+    show a surprise
+    a "Это че за аниме?!"
+    p10 "Ребята, привет!"
     p10 "Обычно интуиция ошибается реже, чем расписание."
     p10 "Ладно, тогда выбери одну картинку."
     $ reset_story_scene_10_choice_game()
@@ -980,7 +990,7 @@ label story_scene_11:
         p11 "Нет, здесь пока нет нужного порядка."
     jump finish_cabinet_scene
 
-# История Фёдорова (хз)
+# История Фёдорова (ГОТОВО)
 label story_scene_12:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/fedorov.JPG", size=(1920, 1080))
