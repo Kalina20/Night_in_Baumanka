@@ -589,7 +589,7 @@ label story_scene_1:
 # История Недаша (найти предмет)
 label story_scene_2:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/nedish.JPG", size=(1920, 1080))
     play music "nedash_smeshariki.mp3"
     show i normal at Position(xpos=0.10, ypos=1.0)
     show a normal at Position(xpos=0.3, ypos=1.0)
