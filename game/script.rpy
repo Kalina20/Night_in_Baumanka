@@ -522,7 +522,7 @@ label finish_cabinet_scene:
     $ success_flag = False
     jump base_room
 
-# История Лычкова (поздравляет с успешной защитой)
+# История Лычкова (ГОТОВО)
 label story_scene_1:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/Igor_igorevic.JPG", size=(1920, 1080))
@@ -586,7 +586,7 @@ label story_scene_1:
         p1 "Хорошего дня!"
     jump finish_cabinet_scene
 
-# История Недаша (найти предмет)
+# История Недаша (ГОТОВО)
 label story_scene_2:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/nedish.JPG", size=(1920, 1080))
@@ -641,7 +641,7 @@ label story_scene_2:
         
     jump finish_cabinet_scene
 
-# История Семенцова (чинит проводку)
+# История Семенцова (ГОТОВО)
 label story_scene_3:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/Igor_igorevic.JPG", size=(1920, 1080))
@@ -769,7 +769,7 @@ label story_scene_4:
         p4 "Вот это настрой!"
     jump finish_cabinet_scene
 
-# История Адамовой (желает доминировать)
+# История Адамовой (ГОТОВО)
 label story_scene_5:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/adam_1.JPG", size=(1920, 1080))
@@ -974,12 +974,24 @@ label story_scene_11:
 label story_scene_12:
     $ ui_unlocked = False
     scene bg room
-    p12 "В этом месте слишком много совпадений, чтобы считать их случайностью."
-    p12 "Если мы дошли сюда вместе, значит, назад дороги уже не будет."
-    p12 "На столе что-то лежит. Нажми на записку."
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0)
+    show d normal at Position(xpos=0.7, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
+    i "Никого..."
+    a "Ну хоть немного отдохнем."
+    d "О, тут опять записка какая-то..."
     call screen story_scene_12_note
     call screen story_scene_12_note_text
-    p12 "Значит, и правда кто-то оставил нам подсказку."
+    show i laugh
+    show a happy 
+    show d happy
+    show k happy
+    d "Фартануло ебать!"
+    call show_beer(2)
+    $ success_flag = True
+    $ renpy.pause()
+    i "Забираем!"
     jump finish_cabinet_scene
 
 screen story_scene_8_formula_game():
