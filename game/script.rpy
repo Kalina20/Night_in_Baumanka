@@ -565,20 +565,30 @@ label story_scene_1:
     # Даня злой
     p1 "Ну что, Даниил, приступим?)"
     $ reset_story_scene_1_match_game()
-    hide i
-    hide a
-    hide k
+    hide i normal
+    hide i happy
+    hide i sad
+    hide a normal
+    hide a happy
+    hide a sad
+    hide a surprise
+    hide k normal
+    hide k happy
+    hide k sad
+    show d mad at Position(xpos=0.19, ypos=1.0)
     call screen story_scene_1_match_game
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show a normal at Position(xpos=0.4, ypos=1.0)
+    show k normal at Position(xpos=0.2, ypos=1.0)
+    show d normal at Position(xpos=0.3, ypos=1.0)
     if story_scene_1_match_success:
-        show d happy
         p1 "Даниил, вы большой молодец! Очень рад, что мои студенты не забыли мой курс!"
         p1 "Держите вашу награду, ребята! Отличного отдыха!"
         e "Спасибо, Игорь Игоревич, всего доброго!"
         $ success_flag = True
         call show_beer(2)
         $ renpy.pause()
-    else:    
-        show d sad 
+    else:
         p1 "Даниил, к сожалению, не большой одной попытки в день("
         d "Игорь Игоревич, может, есть задание по прологу?"
         p1 "Конечно есть, но уже в следующий раз."
@@ -591,7 +601,7 @@ label story_scene_2:
     $ ui_unlocked = False
     scene bg room
     play music "nedash_smeshariki.mp3"
-    show i normal at Position(xpos=0.10, ypos=1.0)
+    show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.3, ypos=1.0)
     show d normal at Position(xpos=0.7, ypos=1.0)
     show k normal at Position(xpos=0.9, ypos=1.0)
@@ -599,28 +609,16 @@ label story_scene_2:
     show nedash elder with Dissolve(2.0)
     $ renpy.pause(1.0, hard=True)
     p2 "Приветсвую вас, о юные дарования!"
-    show i surprise    
-    show d surprise 
-    show k surprise
-    show a surprise 
     a "Вячеслав Михайлович?!"
     p2 "А кто же еще, ахахахахха! Поздравляю вас с успешной защитой, хвала фильтру Баттерворта! Вы действительно заслужили отдых."
     p2 "Должен сказать, я наслышан о вашей затее, но мне нужна ваша помощь. Понимаете, годы уже не те,
     и зрение мое меня подводит."
-    show i normal    
-    show d normal 
-    show k normal
-    show a normal 
     i "Как мы можем вам помочь?"
     p2 "Помогите мне отыскать запоминающее устройство с НИРСами студентов, и я укажу вам путь к жидкому золоту."
     $ found_story_scene_2_item = False
     $ failed_story_scene_2_search = False
     call screen story_scene_2_search
     if found_story_scene_2_item:
-        show i happy    
-        show d happy 
-        show k happy
-        show a happy 
         p2 "Вот это я понимаю студенты! Сразу видно, что вы за киллометр можете углядеть самое правильное управленческое решение!"
         p2 "Что ж, значит защиты НИРСов пройдут по расписанию,
         а вы, ребятки, можете наслаждаться вечером. Держите!"
@@ -629,10 +627,6 @@ label story_scene_2:
         $ success_flag = True
         $ renpy.pause()
     elif failed_story_scene_2_search:
-        show i sad    
-        show d sad 
-        show k sad
-        show a sad 
         p2 "Не нашли... опять на кафедре будут ругаться. Ну, ребятки, что-то в сон меня потянуло, 
         а ваши напитки помогут мне лучше заснуть. А вы идите,
         может, поможете кому-то помоложе."
@@ -647,44 +641,28 @@ label story_scene_3:
     scene bg room
     play music "semens.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.25, ypos=1.0)
-    show d normal at Position(xpos=0.40, ypos=1.0)
-    show k normal at Position(xpos=0.55, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0)
+    show d normal at Position(xpos=0.7, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
     show semens cyborg at Position(xpos=0.8, ypos=1.0)
     p3 "О, здарова, парни!"
-    show i surprise  
-    show a surprise   
-    show d surprise 
-    show k surprise    
     k "Здравствуйте, а что это на вас надето?.."
     p3 "Ох, долгая история. Кароче, ко мне пришел студент третьего курса, весь в слезах, представляете?"
     p3 "Он попросил у меня помощи с курсовой работой по схемотехнике..."
-    show i normal  
-    show a think   
-    show d normal 
-    show k normal  
     a "А научный руководитель случайно не Левиев?"
     p3 "Как ты понял?!"
     a "Было дело."
-    show a normal
     p3 "Задание у него конечно интересное, но немножко сложноватое! Но, как видите, мы почти справились!
     Остался только мини-реактор!"
     p3 "Но, ребята, времени мало, поэтому действуем быстро! Кто пойдет отвечать?"
     a "Давате я что ли."
     p3 "Алексей, мы и так виделись целое лето на втором курсе, дайте другим ребятам проявить себя!"
-    show a sad
     p3 "Но учтите, задание будет не простым, курсовую работу все-таки делаем!"
-    show i laugh
     i "Ну пусть наш четырехглазый пойдет, он сказал что шарит в этой теме!"
-    show k angry
     k "Я убью тебя..."
-    show k happy
     k "Готов отвечать!"
     p3 "Тогда поехали!"
     call screen story_scene_3_resistor_game
-    show i happy
-    show a happy
-    show d happy
     p3 "Ничего себе, а ты разбираешься! Реально шаришь в этой теме."
     p3 "Ребята, вы не поверите, у нас и так на кафедре выпивки много, но сегодня заглянул очень важный человек и принес еще!"
     p3 "Он сказал, что это каких-то студентов, не ваше случайно?"
@@ -720,8 +698,16 @@ label story_scene_4:
     p4 "Вот это настрой, ну тогда показывай! Понимаю, уже время позднее, поэтому планку немножко снизим."
     p4 "На старт, внимание, марш!"
     $ reset_story_scene_4_minigame()
+    hide i normal
+    hide a normal
+    hide d normal
+    hide k normal
     hide brizg normal
     call screen story_scene_4_minigame
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0)
+    show d normal at Position(xpos=0.7, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
     show brizg normal
     if story_scene_4_minigame_won:
         p4 "Вот это темп. Сразу видно, что мои занятия не зря прошли! Молодец, молодец!"
@@ -954,6 +940,118 @@ screen story_scene_8_formula_game():
                 ysize 140
                 background None
 
-                add Transform("images/Alexey/alex bag.JPG", fit="contain", xsize=240, ysize=140, rotate=90):
+                add Transform("images/Alexey/a bag.png", fit="contain", xsize=240, ysize=140, rotate=0):
                     align (0.5, 0.5)
+
+screen story_scene_4_minigame():
+    modal True
+    zorder 1200
+
+    $ state_text = "Положение: вниз" if story_scene_4_is_down else "Положение: вверх"
+    $ state_color = "#6ec1ff" if story_scene_4_is_down else "#ffffff"
+    $ down_bg = "#2b5cffaa" if story_scene_4_is_down else "#1d1d1daa"
+    $ up_bg = "#2fa34aaa" if not story_scene_4_is_down else "#1d1d1daa"
+    $ pose_image = "images/Ivan/i brizg 1.png" if story_scene_4_is_down else "images/Ivan/i brizg 2.png"
+
+    if story_scene_4_minigame_won or story_scene_4_minigame_lost:
+        timer 0.01 action Return()
+    else:
+        timer 1.0 repeat True action Function(story_scene_4_tick)
+
+    key "K_s" action Function(story_scene_4_press_down)
+    key "K_w" action Function(story_scene_4_press_up)
+    key "s" action Function(story_scene_4_press_down)
+    key "w" action Function(story_scene_4_press_up)
+
+    add Transform(pose_image, fit="contain", xsize=700, ysize=980, rotate=360):
+        xalign 0.24
+        yalign 0.5
+
+    frame:
+        xpos 1130
+        ypos 260
+        xsize 760
+        ysize 560
+        background Solid("#111a")
+        padding (34, 30)
+
+        vbox:
+            spacing 18
+            xfill True
+
+            text "":
+                xalign 0.5
+                size 36
+                color "#ffffff"
+                outlines [(2, "#000000", 0, 0)]
+
+            text "Нажимай S, чтобы присесть, и W, чтобы встать. Нужно сделать 30 повторений за 30 секунд.":
+                xalign 0.5
+                text_align 0.5
+                size 24
+                color "#f0f0f0"
+
+            hbox:
+                spacing 55
+                xalign 0.5
+
+                vbox:
+                    spacing 10
+                    text "Осталось времени":
+                        size 24
+                        color "#cccccc"
+                    text "[story_scene_4_time_left] сек":
+                        size 38
+                        color "#ffd54a"
+
+                vbox:
+                    spacing 10
+                    text "Сделано приседаний":
+                        size 24
+                        color "#cccccc"
+                    text "[story_scene_4_squats] / 30":
+                        size 38
+                        color "#7dff7d"
+
+            bar value StaticValue(story_scene_4_squats, 30):
+                xalign 0.5
+                xmaximum 620
+                ymaximum 28
+
+            frame:
+                xalign 0.5
+                xsize 340
+                ysize 100
+                background Solid("#ffffff10")
+
+                text state_text:
+                    align (0.5, 0.5)
+                    size 32
+                    color state_color
+
+            hbox:
+                spacing 26
+                xalign 0.5
+
+                frame:
+                    xsize 150
+                    ysize 76
+                    background Solid(down_bg)
+
+                    text "S\nвниз":
+                        align (0.5, 0.5)
+                        text_align 0.5
+                        size 28
+                        color "#ffffff"
+
+                frame:
+                    xsize 150
+                    ysize 76
+                    background Solid(up_bg)
+
+                    text "W\nвверх":
+                        align (0.5, 0.5)
+                        text_align 0.5
+                        size 28
+                        color "#ffffff"
 

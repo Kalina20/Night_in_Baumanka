@@ -1720,30 +1720,30 @@ screen story_scene_1_match_game():
         timer 0.01 action Return()
 
     frame:
-        xpos 120
-        ypos 150
-        xsize 1180
-        ysize 660
+        xpos 570
+        ypos 180
+        xsize 900
+        ysize 580
         background Solid("#0f1b12dd")
-        padding (35, 30)
+        padding (28, 24)
 
         vbox:
-            spacing 24
+            spacing 18
             xfill True
 
             text "Соедини пример с правильным ответом":
                 xalign 0.5
-                size 38
+                size 32
                 color "#ffffff"
                 outlines [(2, "#000000", 0, 0)]
 
 
             hbox:
-                spacing 120
+                spacing 50
                 xalign 0.5
 
                 vbox:
-                    spacing 18
+                    spacing 14
                     for left_item in [
                         "images/or.jpg",
                         "images/xor.jpg",
@@ -1753,27 +1753,30 @@ screen story_scene_1_match_game():
                         $ left_done = left_item in story_scene_1_match_done
 
                         button:
-                            xsize 320
-                            ysize 140
+                            xsize 250
+                            ysize 110
                             background Solid("#2e7d32aa" if left_done else ("#3d6ec9cc" if left_selected else "#1d1d1dcc"))
                             hover_background Solid("#4f86e8dd" if not left_done else "#2e7d32cc")
                             action Function(story_scene_1_select_left, left_item)
 
-                            add Transform(left_item, fit="contain", xsize=280, ysize=110):
+                            add Transform(left_item, fit="contain", xsize=220, ysize=86):
                                 xalign 0.5
                                 yalign 0.5
 
                 vbox:
-                    spacing 18
+                    spacing 14
                     for right_item in ["->", "ИЛИ", "XOR"]:
                         $ right_selected = story_scene_1_match_selected_right == right_item
                         $ right_done = right_item in story_scene_1_match_done
 
                         textbutton right_item:
-                            xsize 320
-                            ysize 86
-                            text_size 30
+                            xsize 250
+                            ysize 110
+                            text_size 26
                             text_color "#ffffff"
+                            text_xalign 0.5
+                            text_yalign 0.5
+                            text_textalign 0.5
                             background Solid("#2e7d32aa" if right_done else ("#c96d2acc" if right_selected else "#1d1d1dcc"))
                             hover_background Solid("#d98836dd" if not right_done else "#2e7d32cc")
                             action Function(story_scene_1_select_right, right_item)
