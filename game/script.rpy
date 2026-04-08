@@ -1,4 +1,5 @@
 define e = Character('Все', color="#c300ff")
+define ee = Character('Все (кроме Вани)', color="#c300ff")
 define i = Character('Иван Писарев', color="#db4010")
 define a = Character('Алексей Калиниченко', color="#559d0d")
 define d = Character('Даниил Перекосов', color="#8d9ce9")
@@ -964,12 +965,43 @@ label story_scene_10:
     $ renpy.pause(1.0, hard=True)
     show kadira normal with Dissolve(2.0)
     $ renpy.pause(1.0, hard=True)
-    show i 
     show a surprise
     a "Это че за аниме?!"
-    p10 "Ребята, привет!"
-    p10 "Обычно интуиция ошибается реже, чем расписание."
-    p10 "Ладно, тогда выбери одну картинку."
+    show i evil
+    show d surprise
+    show k surprise
+    p10 "Ребята, привет! ♥"
+    show i laugh
+    i "Охаё!"
+    show a sad
+    a "Не матерись, пожалуйста."
+    show i sad
+    i "Извини..."
+    show i happy
+    show a normal
+    show d normal
+    show k happy
+    p10 "Мальчики, я так рада вас видеть! Я уже думала, что вы не придете!"
+    i "А как вы узнали?"
+    p10 "Ой, а ко мне забегала моя {color=#dce800}★{/color} преподавательница {color=#dce800}★{/color}, и предупредила о вашем скором прибытии! Еще и гостинцы отсавила! ☺︎"
+    p10 "...Но сказала вам просто так их не отдавать... 😔"
+    p10 "Мальчики, должна вам признаться, мне нужна ваша помощь... 👉👈"
+    show i laugh
+    i "Поможем, чем сможем, Анастасия Рустемовна! 😎"
+    p10 "Понимаете, в последнее время, когда я захожу на кафедру и вижу наших преподавателей, сердце стучит как бешеное! 🥺"
+    show i think
+    i "Не может быть..."
+    p10 "Кажется, я влюбилась в одного из них, но не могу понять, в кого же именно! 😳"
+    p10 "Кто-нибудь из вас сможет мне помочь?.. Пожалуйста? 🙏"
+    show i laugh
+    i "Я разберусь, я в таких делах мастер!"
+    show i angry
+    show a think
+    show d laugh
+    show k laugh
+    ee "Пхахахахахах"
+    show i happy
+    p10 "Спасибо-спасибо! 🥰 Тогда подскажешь, в кого из них я могла влюбиться? 💖"
     $ reset_story_scene_10_choice_game()
     call screen story_scene_10_choice_game
     p10 "Значит, ты выбрал вариант [story_scene_10_choice]. Запомню."
