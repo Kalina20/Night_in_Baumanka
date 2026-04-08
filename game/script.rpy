@@ -57,7 +57,7 @@ init python:
         if cabinet_scene_map:
             return
 
-        cabinets = ["420", "421", "422", "423", "424", "425", "426", "427", "428", "429", "430", "431"]
+        cabinets = ["420", "421", "422", "423", "424", "425", "426", "427", "428", "429", "430"]
         scene_labels = [
             "story_scene_1",
             "story_scene_2",
@@ -70,7 +70,6 @@ init python:
             "story_scene_9",
             "story_scene_10",
             "story_scene_11",
-            "story_scene_12",
         ]
         # renpy.random.shuffle(scene_labels) пока закометим для отладки
         store.cabinet_scene_map = dict(zip(cabinets, scene_labels))
@@ -521,7 +520,10 @@ label finish_cabinet_scene:
         $ bottle_counter += bottle_plus
         $ bottle_plus = 2
     $ success_flag = False
-    jump base_room
+    if len(visited_cabinets) == 11:
+        jump final
+    else:
+        jump base_room
 
 # История Лычкова (ГОТОВО)
 label story_scene_1:
@@ -774,12 +776,14 @@ label story_scene_4:
 label story_scene_5:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/adam_1.JPG", size=(1920, 1080))
+    play music "saw.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.2, ypos=1.0)
     show d normal at Position(xpos=0.3, ypos=1.0)
     show k normal at Position(xpos=0.4, ypos=1.0)
     show expression Solid("#000000da") as shkaf_darken onlayer master
     i "Ой, а чего это тут свет выключен..."
+    $ renpy.pause(5.0, hard=True)
     k "Кажется, я нашел выключатель, щас включу..."
     pq "Ну здравствуйте, мальчики"
     scene expression Transform("images/rooms/adam_2.JPG", size=(1920, 1080))
@@ -790,8 +794,13 @@ label story_scene_5:
     show d mad at Position(xpos=0.3, ypos=1.0)
     show k surprise at Position(xpos=0.4, ypos=1.0)
     e "Твою ма..."
-    p5 "Я очень ждала вас! У меня есть кое-что ваше, но перед этим придется пройти мое жаркое испытан..."
+    p5 "Я очень ждала вас! У меня есть кое-какие ваши вещи, но перед этим придется пройти мое жаркое испытан..."
     d "По съебам, мужики, оно того не стоит!"
+    hide i
+    hide a
+    hide d
+    hide k
+    with Dissolve(2.0)
     # Здесь отдельная сцена в коридоре
     hide adamova normal
     scene bg corridor
@@ -816,6 +825,7 @@ label story_scene_6:
 label story_scene_7:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/leviev.JPG", size=(1920, 1080))
+    play music "Dota_2_OST_-_Main_menu_1_(SkySound.cc).mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
     show d normal at Position(xpos=0.3, ypos=1.0)
     show a think at Position(xpos=0.2, ypos=1.0)    
@@ -873,12 +883,16 @@ label story_scene_7:
     $ renpy.pause()
     show a surprise
     a "Бежим! Только не попадитесь под хук!"
+    hide a 
+    hide k
+    with Dissolve(2.0)
     jump finish_cabinet_scene
 
-# История Бянкина (синетзирует элемент)
+# История Бянкина (ГОТОВО)
 label story_scene_8:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/biankin.JPG", size=(1920, 1080))
+    play music "Smeshariki_-_Nauchnaya_tema_OST_Pedagogicheskaya_poema_(SkySound.cc).mp3"
     show byankin normal
     show i normal at Position(xpos=0.12, ypos=1.0)
     show a normal at Position(xpos=0.25, ypos=1.0)
@@ -915,7 +929,6 @@ label story_scene_8:
     hide k surprise
     hide byankin normal
     call screen story_scene_8_formula_game
-    show byankin happy
     show i normal at Position(xpos=0.12, ypos=1.0)
     show a normal at Position(xpos=0.25, ypos=1.0)
     show d normal at Position(xpos=0.8, ypos=1.0)
@@ -934,6 +947,7 @@ label story_scene_8:
         $ bottle_plus = 3
         $ renpy.pause()
     else:
+        show byankin normal
         show i sad at Position(xpos=0.12, ypos=1.0)
         show a sad at Position(xpos=0.25, ypos=1.0)
         show d sad at Position(xpos=0.8, ypos=1.0)
@@ -941,22 +955,11 @@ label story_scene_8:
         p8 "Эх, плохие вы студенты! И чем вы только на моих лекциях занимались... Придется все самому делать, а вы уходите!"
     jump finish_cabinet_scene
 
-# История Тихомировой (нашла куртку на кафедре)
+# История Кадырбаевой (хочет написать фанфик)
 label story_scene_9:
     $ ui_unlocked = False
-    scene bg room
-    show tishka normal:
-        zoom 0.9
-        xalign 0.5
-        yalign 0.5
-    p9 "Я запомнила этот коридор еще с первого курса."
-    p9 "Только тогда он казался бесконечным, а сейчас замкнутым."
-    jump finish_cabinet_scene
-
-# История Кадырбаевой (хочет написать фанфик)
-label story_scene_10:
-    $ ui_unlocked = False
     scene expression Transform("images/rooms/kaderbaeva.JPG", size=(1920, 1080))
+    play music "kadira_smeshariki.mp3"
     show i normal at Position(xpos=0.12, ypos=1.0)
     show a think at Position(xpos=0.25, ypos=1.0)
     show d normal at Position(xpos=0.8, ypos=1.0)
@@ -1008,7 +1011,7 @@ label story_scene_10:
     jump finish_cabinet_scene
 
 # История Выхованца (хочет чтобы проверили гост)
-label story_scene_11:
+label story_scene_10:
     $ ui_unlocked = False
     scene bg room
     p11 "Я думала, что после защиты станет легче."
@@ -1023,9 +1026,10 @@ label story_scene_11:
     jump finish_cabinet_scene
 
 # История Фёдорова (ГОТОВО)
-label story_scene_12:
+label story_scene_11:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/fedorov.JPG", size=(1920, 1080))
+    play music "Smeshariki_-_Maskarad_OST_Maskarad_(SkySound.cc).mp3"    
     show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.25, ypos=1.0)
     show d normal at Position(xpos=0.40, ypos=1.0)
@@ -1044,6 +1048,18 @@ label story_scene_12:
     $ success_flag = True
     $ renpy.pause()
     i "Забираем!"
+    jump finish_cabinet_scene
+
+# История Тихомировой (нашла куртку на кафедре)
+label final:
+    $ ui_unlocked = False
+    scene bg room
+    show tishka normal:
+        zoom 0.9
+        xalign 0.5
+        yalign 0.5
+    p9 "Я запомнила этот коридор еще с первого курса."
+    p9 "Только тогда он казался бесконечным, а сейчас замкнутым."
     jump finish_cabinet_scene
 
 screen story_scene_8_formula_game():
