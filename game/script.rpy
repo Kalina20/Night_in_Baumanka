@@ -911,10 +911,23 @@ label story_scene_8:
     show byankin happy
     if story_scene_8_formula_won:
         show byankin happy
-        p8 "Кажется, получилось... Мы создали Бянкиниум!"        
-        p8 "Вот это уже разговор. Формулы летят, а ты даже не моргнул."
+        show i happy
+        show a happy
+        show d happy
+        show k happy
+        p8 "Кажется, получилось... Мы создали Бянкиниум!" 
+        e "Феноменально..."       
+        p8 "Что ж, ребята, вы оказались хорошими студентами, а хорошие студенты заслуживают награды!"
+        call show_beer(3)
+        $ success_flag = True
+        $ beer_plus = 3
+        $ renpy.pause()
     else:
-        p8 "Нет, физика так не делается. Картошку в закон Ома мы пока не подставляем."
+        show i sad
+        show a sad
+        show d sad
+        show k sad
+        p8 "Эх, плохие вы студенты! И чем вы только на моих лекциях занимались... Придется все самому делать, а вы уходите!"
     jump finish_cabinet_scene
 
 # История Тихомировой (нашла куртку на кафедре)
@@ -980,8 +993,6 @@ screen story_scene_8_formula_game():
 
     key "K_LEFT" action Function(story_scene_8_formula_move_left)
     key "K_RIGHT" action Function(story_scene_8_formula_move_right)
-    key "a" action Function(story_scene_8_formula_move_left)
-    key "d" action Function(story_scene_8_formula_move_right)
 
     add Solid("#10141cee")
 
@@ -993,7 +1004,7 @@ screen story_scene_8_formula_game():
         background None
         padding (40, 30)
 
-        text "Мини-игра: Поймай формулу":
+        text "Поймай формулу":
             xalign 0.5
             ypos 10
             size 38
