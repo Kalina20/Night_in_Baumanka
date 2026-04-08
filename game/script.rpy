@@ -883,7 +883,7 @@ screen story_scene_8_formula_game():
                 ysize 140
                 background None
 
-                add Transform("images/Alexey/alex bag.JPG", fit="contain", xsize=240, ysize=140, rotate=90):
+                add Transform("images/Alexey/a bag.png", fit="contain", xsize=240, ysize=140, rotate=0):
                     align (0.5, 0.5)
 
 screen story_scene_4_minigame():
@@ -894,7 +894,7 @@ screen story_scene_4_minigame():
     $ state_color = "#6ec1ff" if story_scene_4_is_down else "#ffffff"
     $ down_bg = "#2b5cffaa" if story_scene_4_is_down else "#1d1d1daa"
     $ up_bg = "#2fa34aaa" if not story_scene_4_is_down else "#1d1d1daa"
-    $ pose_image = "images/Ivan/van brizg 1.JPG" if story_scene_4_is_down else "images/Ivan/van brizg 2.JPG"
+    $ pose_image = "images/Ivan/i brizg 1.png" if story_scene_4_is_down else "images/Ivan/i brizg 2.png"
 
     if story_scene_4_minigame_won or story_scene_4_minigame_lost:
         timer 0.01 action Return()
