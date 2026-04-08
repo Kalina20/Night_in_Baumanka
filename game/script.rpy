@@ -526,7 +526,8 @@ label finish_cabinet_scene:
     if len(visited_cabinets) == 11:
         jump final
     else:
-        jump base_room
+        # ИСПРАААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААВИТЬ
+        jump final
 
 # История Лычкова (ГОТОВО)
 label story_scene_1:
@@ -815,10 +816,11 @@ label story_scene_5:
     d "Еще пару таких встреч, и я завязываю с пивом..."
     jump finish_cabinet_scene
 
-# История Бабкина (не может стереть с доски "бабкин пидарас")
+# История Бабкина (ГОТОВО)
 label story_scene_6:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/babkin.JPG", size=(1920, 1080))
+    play music "Smeshariki_-_Grustnaya_tema_OST_Babochka_(SkySound.cc).mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
     show d normal at Position(xpos=0.7, ypos=1.0)
     show a normal at Position(xpos=0.3, ypos=1.0)    
@@ -1075,7 +1077,7 @@ label story_scene_9:
     jump finish_cabinet_scene
         
 
-# История Выхованца (хочет чтобы проверили гост)
+# История Выхованца (ГОТОВО)
 label story_scene_10:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/vihovanic.JPG", size=(1920, 1080))
@@ -1137,13 +1139,43 @@ label story_scene_11:
 
 # История Тихомировой (нашла куртку на кафедре)
 label final:
-    $ ui_unlocked = False
-    scene bg room
-    show tishka normal:
-        zoom 0.9
-        xalign 0.5
-        yalign 0.5
-    p9 "Я запомнила этот коридор еще с первого курса."
+    scene expression Transform("images/rooms/koridor.JPG", size=(1920, 1080))
+    play music "coridor.mp3"
+    show i normal at Position(xpos=0.12, ypos=1.0) 
+    show a normal at Position(xpos=0.35, ypos=1.0) 
+    show d map 2 at Position(xpos=0.6, ypos=1.0) 
+    show k normal at Position(xpos=0.85, ypos=1.0) 
+    d "Кажется, мы прошлись по всем кабинетам."
+    show d normal
+    i "Значит, пришло время вернуться на кафедру."
+    a "Как думаете, {color=#ff5555}она{/color} нас ждет?"
+    k "Я в этом уверен."
+    hide i
+    hide a
+    hide d
+    hide k
+    with Dissolve(2.0)  
+    scene expression Transform("images/rooms/kaf.JPG", size=(1920, 1080))
+    show i normal at Position(xpos=0.10, ypos=1.0) 
+    show a normal at Position(xpos=0.25, ypos=1.0) 
+    show d normal at Position(xpos=0.75, ypos=1.0) 
+    show k normal at Position(xpos=0.90, ypos=1.0)
+    with Dissolve (2.0)
+    pq "Что ж, кажется, это приключение подходит к концу..."
+    show tishka normal with Dissolve(2.0)
+        # zoom 0.9
+        # xalign 0.5
+        # yalign 0.5
+    p9 "...И только от вас зависит, счастливый ли это будет конец."
+    show i happy
+    show a happy
+    show d happy
+    show k happy
+    e "Добрый вечер, Елизавета Алексеевна!"
+    show i normal
+    show a normal
+    show d normal
+    show k normal
     p9 "Только тогда он казался бесконечным, а сейчас замкнутым."
     jump finish_cabinet_scene
 
