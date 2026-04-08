@@ -818,10 +818,50 @@ label story_scene_5:
 # История Бабкина (не может стереть с доски "бабкин пидарас")
 label story_scene_6:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/babkin.JPG", size=(1920, 1080))
+    show i normal at Position(xpos=0.1, ypos=1.0)
+    show d normal at Position(xpos=0.7, ypos=1.0)
+    show a normal at Position(xpos=0.3, ypos=1.0)    
+    show k normal at Position(xpos=0.9, ypos=1.0)
     show babkin normal
-    p6 "На этом этаже слишком хорошо слышны шаги."
-    p6 "Иногда кажется, что за нами кто-то идет на полсекунды позже."
+    e "..."
+    show i laugh 
+    show d laugh 
+    show a think 
+    show k laugh
+    e "ПХАХАХАХАХАХАХХ!"
+    show i normal 
+    show d normal 
+    show a normal 
+    show k normal
+    d "...Кхм, простите."
+    p6 "Что смешного?"
+    show d happy
+    d "Да так, анекдот веселый вспомнили..."
+    p6 "Все одновременно?"
+    show d normal
+    d "Ну да..."
+    p6 "Ну ладно..."
+    d "Мы тут за вещичками пришли, позволите?"
+    p6 "Мне сказали их так просто не отдавать..."
+    show i evil
+    i "(шепотом) А что он сделает, собьет нас?"
+    show i normal
+    p6 "...Но мне впадлу что-то придумывать, поэтому забирайте."
+    call show_beer(1, 0.35)
+    $ success_flag = True
+    $ bottle_plus = 1
+    $ renpy.pause()
+    show k angry
+    k "А почему тут пустая бутылка?.."
+    p6 "Горе запивал."
+    d "Ну, мы пойдем..."
+    p6 "..."
+    hide i
+    hide a
+    hide d
+    hide k
+    with Dissolve(2.0)
     jump finish_cabinet_scene
 
 # История Левиева (ГОТОВО)
@@ -1038,16 +1078,36 @@ label story_scene_9:
 # История Выхованца (хочет чтобы проверили гост)
 label story_scene_10:
     $ ui_unlocked = False
-    scene bg room
-    p11 "Я думала, что после защиты станет легче."
-    p11 "Но кажется, самое важное начинается только сейчас."
-    p11 "Для начала попробуем собрать хотя бы простую цепь."
+    scene expression Transform("images/rooms/vihovanic.JPG", size=(1920, 1080))
+    play music "Smeshariki_-_Krosh_OST_Skamejka_(SkySound.cc).mp3"
+    show i normal at Position(xpos=0.12, ypos=1.0)
+    show a normal at Position(xpos=0.25, ypos=1.0)
+    show d normal at Position(xpos=0.40, ypos=1.0)
+    show k normal at Position(xpos=0.55, ypos=1.0)
+    $ renpy.pause(1.0, hard=True)
+    show vikh normal at Position(xpos=0.80, ypos=1.0) with Dissolve(2.0)
+    $ renpy.pause(1.0, hard=True)
+    p11 "ГОСТЫ, ГОСТЫ, ПОКАЖИТЕ МНЕ ГОСТЫ!"
+    show i surprise
+    show a surprise 
+    show d surprise 
+    show k surprise
+    e "АААААААА"
+    p11 "НЕТ ВРЕМЕНИ ОБЪЯСНЯТЬ, МНЕ СРОЧНО НУЖНО ПРОВЕРИТЬ КАКОЙ-НИБУДЬ ОТЧЕТ НА СООТВЕТСТВИЕ ГОСТУ!"
+    p11 "ВОТ, РЕШИТЕ ЗАДАЧКУ, А ОТЧЕТ НА ПОЧТУ СКИНИТЕ! Я СМОТРЮ ИХ КАЖДЫЙ ЧЕТВЕРГ В 20:31!"
     $ reset_story_scene_8_chain_game()
     call screen story_scene_8_chain_game
     if story_scene_8_chain_success:
-        p11 "Да. Когда все стоит на своих местах, становится спокойнее."
+        p11 "ЛАДНО, ЗАСЧИТЫВАЮ! И ЗАБЕРИТЕ ОТСЮДА СВОИ БУТЫЛКИ, У НИХ НА ЭТИКЕТКАХ ШРИФТ НЕ ПО ГОСТУ!"
+        call show_beer(2)
+        $ success_flag = True
+        $ renpy.pause() 
     else:
-        p11 "Нет, здесь пока нет нужного порядка."
+        show i sad
+        show a sad 
+        show d sad 
+        show k sad
+        p11 "ВЫ ЧТО ТУТ, ВСЕ НА ПИТОНЕ ПИШИТЕ?! А НУ ПОШЛИ ВОН! ГОСТ САМ СЕБЯ НЕ ПРОВЕРИТ!"
     jump finish_cabinet_scene
 
 # История Фёдорова (ГОТОВО)
