@@ -811,7 +811,7 @@ label story_scene_6:
     p6 "Иногда кажется, что за нами кто-то идет на полсекунды позже."
     jump finish_cabinet_scene
 
-# История Левиева
+# История Левиева (ГОТОВО)
 label story_scene_7:
     $ ui_unlocked = False
     scene expression Transform("images/rooms/leviev.JPG", size=(1920, 1080))
@@ -983,11 +983,11 @@ label story_scene_11:
 # История Фёдорова (хз)
 label story_scene_12:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/fedorov.JPG", size=(1920, 1080))
     show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.3, ypos=1.0)
-    show d normal at Position(xpos=0.7, ypos=1.0)
-    show k normal at Position(xpos=0.9, ypos=1.0)
+    show a normal at Position(xpos=0.25, ypos=1.0)
+    show d normal at Position(xpos=0.40, ypos=1.0)
+    show k normal at Position(xpos=0.55, ypos=1.0)
     i "Никого..."
     a "Ну хоть немного отдохнем."
     d "О, тут опять записка какая-то..."
