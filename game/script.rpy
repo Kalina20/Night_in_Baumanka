@@ -223,7 +223,7 @@ init python:
             {"text": "E = mc^2", "correct": True},
             {"text": "P = UI", "correct": True},
             {"text": "p = mv", "correct": True},
-            {"text": "A = Fs", "correct": True},
+            {"text": "A = FS", "correct": True},
             {"text": "Q = I^2Rt", "correct": True},
             {"text": "F = mЯу", "correct": False},
             {"text": "U = картошка", "correct": False},
@@ -685,7 +685,7 @@ label story_scene_3:
     hide i laugh
     hide a sad
     hide d normal
-    show k happy at Position(xpos=0.2, ypos=1.0)
+    show k think at Position(xpos=0.2, ypos=1.0)
     call screen story_scene_3_resistor_game
     show i happy at Position(xpos=0.1, ypos=1.0)
     show a happy at Position(xpos=0.25, ypos=1.0)
@@ -740,12 +740,16 @@ label story_scene_4:
     hide k normal
     hide brizg normal
     call screen story_scene_4_minigame
-    show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.3, ypos=1.0)
-    show d normal at Position(xpos=0.7, ypos=1.0)
-    show k normal at Position(xpos=0.9, ypos=1.0)
+    # show i normal at Position(xpos=0.1, ypos=1.0)
+    # show a normal at Position(xpos=0.3, ypos=1.0)
+    # show d normal at Position(xpos=0.7, ypos=1.0)
+    # show k normal at Position(xpos=0.9, ypos=1.0)
     show brizg normal
     if story_scene_4_minigame_won:
+        show i laugh at Position(xpos=0.1, ypos=1.0)
+        show a happy at Position(xpos=0.3, ypos=1.0)
+        show d laugh at Position(xpos=0.7, ypos=1.0)
+        show k laugh at Position(xpos=0.9, ypos=1.0)
         p4 "Вот это темп. Сразу видно, что мои занятия не зря прошли! Молодец, молодец!"
         i "А приз спортсмену?"
         p4 "Ой, чуть не забыл! Да, старость не радость, одиннадцатый десяток пошел все-таки... Вот, держите, и помните - 
@@ -755,6 +759,10 @@ label story_scene_4:
         $ success_flag = True
         $ renpy.pause()
     else:
+        show i sad at Position(xpos=0.1, ypos=1.0)
+        show a sad at Position(xpos=0.3, ypos=1.0)
+        show d sad at Position(xpos=0.7, ypos=1.0)
+        show k sad at Position(xpos=0.9, ypos=1.0)
         p4 "Эх, не хватило совсем чуть-чуть. После такой защиты простительно, но в качестве домашнего задания
         даю вам 100 км на велосипеде по измайловскому парку, и чтоб потом дневник сдали!"
         i "Так точно, со следующей недели в зал ходить начну!"
@@ -774,11 +782,21 @@ label story_scene_5:
     k "Кажется, я нашел выключатель, щас включу..."
     pq "Ну здравствуйте, мальчики"
     hide shkaf_darken
+    show i surprise
+    show a surprise
+    show d mad
+    show k surprise
     show adamova normal at Position(xpos=0.7, ypos=1.0)
     e "Твою ма..."
     p5 "Я очень ждала вас! У меня есть кое-что ваше, но перед этим придется пройти мое жаркое испытан..."
     d "По съебам, мужики, оно того не стоит!"
     # Здесь отдельная сцена в коридоре
+    hide adamova normal
+    scene bg corridor
+    show i sad at Position(xpos=0.12, ypos=1.0)
+    show a sad at Position(xpos=0.35, ypos=1.0)
+    show d sad at Position(xpos=0.7, ypos=1.0)
+    show k sad at Position(xpos=0.9, ypos=1.0)
     d "Еще пару таких встреч, и я завязываю с пивом..."
     jump finish_cabinet_scene
 
@@ -791,37 +809,65 @@ label story_scene_6:
     p6 "Иногда кажется, что за нами кто-то идет на полсекунды позже."
     jump finish_cabinet_scene
 
-# История Левиева (хочет кушать)
+# История Левиева
 label story_scene_7:
     $ ui_unlocked = False
     scene bg room
     show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.2, ypos=1.0)
     show d normal at Position(xpos=0.3, ypos=1.0)
+    show a think at Position(xpos=0.2, ypos=1.0)    
     show k normal at Position(xpos=0.4, ypos=1.0)
     a "Чем тут воняет?.."
     $ renpy.pause(1.0, hard=True)
     show leviev normal at Position(xpos=0.7, ypos=1.0) with Dissolve(2.0) 
     $ renpy.pause(1.0, hard=True)
+    show i surprise
+    show d surprise
+    show a surprise    
+    show k surprise
     p7 "О, свежее мясо!"
-    p7 "Мне тут моя подруга по несчастью передала кое-что, видимо, ваше. Еще добавила, чтобы прост так не отдавал, хэ"
+    p7 "Мне тут моя подруга по несчастью передала кое-что, видимо, ваше. Еще добавила, чтобы прост так не отдавал, ХЭ!"
+    show i sad
+    show d sad
+    show a sad
+    show k sad
     a "Видно уже не наше..."
     p7 "Ох, Алексей, ваша работа в свое время произвела на меня впечатление! Значит, в этот раз будем строить ракету!"
     p7 "Ну, Алексей, подходите на защиту!"
+    show k surprise
+    k "(шепотом) Мужики, я кажется что-то вижу..."
+    show a think at Position(xpos=0.1, ypos=1.0) 
+    show leviev normal at Position(xpos=0.3, ypos=1.0)
+    hide i 
+    hide d
+    hide k
     # Звук хука и картинка
     p7 "Ну вот значит, небольшая часть нашей схемы, давайте чуть подробнее ее разберем."
-    a "А, ну тут все понятно!"
+    a "А, ну тут все понятно!"    
+    show k ctrl 1 at Position(xpos=0.1, ypos=1.0)
     p7 "Тогда рассказывайте!"
+    show k ctrl 2 at Position(xpos=0.15, ypos=1.0)
     a "Нууу, тут у нас трехфазовый двуступенчатый резистор..."
+    show k ctrl 1 at Position(xpos=0.20, ypos=1.0)
     p7 "Дальше-дальше!"
-    k "(шепотом) Мужикпи, я кажется что-то вижу..."
+    show k ctrl 2 at Position(xpos=0.25, ypos=1.0)    
     a "Ээээм, еще я тут вижу адронный коллайдер с обратной связью..."
+    show k ctrl 1 at Position(xpos=0.30, ypos=1.0)
     p7 "А зачем обратная связь?"
+    show k ctrl 2 at Position(xpos=0.35, ypos=1.0)
     a "А, ну это же очевидно!"
+    show k ctrl 1 at Position(xpos=0.40, ypos=1.0)
     p7 "Ваша правда...А как можно улучшить схему?"
+    show k ctrl 2 at Position(xpos=0.45, ypos=1.0)
     a "Ну, есть несколько вариантов, но, на мой взгляд, самый логичный - добавить гравитационный разлом к восьмому выходу микросхемы!"
+    show k ctrl 1 at Position(xpos=0.50, ypos=1.0)
     p7 "Интересное решение, интересное!"
+    show k laugh
     k "Мужики я залутался!"
+    call show_beer(2)
+    $ success_flag = True
+    $ renpy.pause()
+    show a surprise
     a "Бежим! Только не попадитесь под хук!"
     jump finish_cabinet_scene
 
@@ -830,16 +876,40 @@ label story_scene_8:
     $ ui_unlocked = False
     scene bg room
     show byankin normal
-    p8 "Если открыть все кабинеты подряд, мы точно соберем полную картину."
-    p8 "Главное, чтобы картина потом не собрала нас."
-    show byankin happy
-    p8 "Хотя, с другой стороны, если мы уже здесь, то давай проверим, кто из нас еще помнит физику."
-    p8 "Лови только правильные формулы и не трогай всякий бред."
+    show i normal at Position(xpos=0.12, ypos=1.0)
+    show a normal at Position(xpos=0.25, ypos=1.0)
+    show d normal at Position(xpos=0.8, ypos=1.0)
+    show k normal at Position(xpos=0.9, ypos=1.0)
+    p8 "Ох, студенты, здравствуйте, вы как раз вовремя!"
+    show i surprise
+    show a surprise
+    show d surprise
+    show k surprise
+    i "Валерий Михайхлович, что здесь происходит?!"
+    p8 "Ох, провожу эксперимент для новой лабораторной работы!"
+    show i think
+    show a think
+    show d think
+    show k think
+    k "Новой лабораторной работы?.."
+    p8 "Да, по синтезу нового элемента!"
+    show i surprise
+    show a surprise
+    show d surprise
+    show k surprise
+    d "Чего-чего?!"
+    p8 "Вы, ребята, очень кстати, ведь мне нужна ваша помощь!"
+    a "Но что нам надо делать?!"
+    p8 "Атомное ядро пока не стабильно, но, применив наши знания в области физики, мы сможем стабилизировать его и сотворить чудо!"
+    show d sad
+    d "Какие знания..."
+    p8 "Студенты, вспомините все, чему я вас учил, и ловите только правильные формулы!"
     $ reset_story_scene_8_formula_game()
-    hide byankin happy
     call screen story_scene_8_formula_game
     show byankin happy
     if story_scene_8_formula_won:
+        show byankin happy
+        p8 "Кажется, получилось... Мы создали Бянкиниум!"        
         p8 "Вот это уже разговор. Формулы летят, а ты даже не моргнул."
     else:
         p8 "Нет, физика так не делается. Картошку в закон Ома мы пока не подставляем."

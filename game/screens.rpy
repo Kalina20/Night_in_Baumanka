@@ -1941,8 +1941,6 @@ screen story_scene_8_formula_game():
 
     key "K_LEFT" action Function(story_scene_8_formula_move_left)
     key "K_RIGHT" action Function(story_scene_8_formula_move_right)
-    key "a" action Function(story_scene_8_formula_move_left)
-    key "d" action Function(story_scene_8_formula_move_right)
 
     add Solid("#10141cee")
 
@@ -1954,14 +1952,14 @@ screen story_scene_8_formula_game():
         background None
         padding (40, 30)
 
-        text "Мини-игра: Поймай формулу":
+        text "Поймай формулу":
             xalign 0.5
             ypos 10
             size 38
             color "#ffffff"
             outlines [(2, "#000000", 0, 0)]
 
-        text "Лови только правильные формулы. Управление: A/D или стрелки.":
+        text "Лови только правильные формулы. Управление: cтрелочки вправо и влево.":
             xalign 0.5
             ypos 60
             size 24
@@ -2232,6 +2230,7 @@ screen story_scene_4_minigame():
     $ down_bg = "#2b5cffaa" if story_scene_4_is_down else "#1d1d1daa"
     $ up_bg = "#2fa34aaa" if not story_scene_4_is_down else "#1d1d1daa"
     $ pose_image = "i brizg 1" if story_scene_4_is_down else "i brizg 2"
+    $ pose_offset = 100 if story_scene_4_is_down else -100
 
     if story_scene_4_minigame_won or story_scene_4_minigame_lost:
         timer 0.01 action Return()
