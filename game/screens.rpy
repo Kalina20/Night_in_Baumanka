@@ -1889,9 +1889,16 @@ screen story_scene_10_choice_game():
     if story_scene_10_choice is not None:
         timer 0.01 action Return()
 
+    default story_scene_10_choice_images = [
+        ("1", "images/vibor_1.jpg"),
+        ("2", "images/vibor_2.jpg"),
+        ("3", "images/vibor_3.jpg"),
+        ("4", "images/vibor_4.jpg"),
+    ]
+
     frame:
-        xpos 980
-        ypos 180
+        xalign 0.5
+        yalign 0.5
         xsize 820
         ysize 620
         background Solid("#111a")
@@ -1907,28 +1914,20 @@ screen story_scene_10_choice_game():
                 color "#ffffff"
                 outlines [(2, "#000000", 0, 0)]
 
-            text "Пока вместо картинок стоят цифры.":
-                xalign 0.5
-                text_align 0.5
-                size 24
-                color "#dddddd"
-
             grid 2 2:
                 xalign 0.5
                 spacing 26
 
-                for choice_id in ["1", "2", "3", "4"]:
-                    textbutton choice_id:
+                for choice_id, choice_image in story_scene_10_choice_images:
+                    button:
                         xsize 260
-                        ysize 170
-                        text_size 54
-                        text_color "#ffffff"
-                        text_xalign 0.5
-                        text_yalign 0.5
-                        text_textalign 0.5
-                        background Solid("#6d4cc2cc")
-                        hover_background Solid("#8b67e0dd")
+                        ysize 220
+                        background Solid("#e7dccd")
+                        hover_background Solid("#f6eadb")
+                        padding (8, 8)
                         action Function(story_scene_10_pick_choice, choice_id)
+
+                        add Transform(choice_image, fit="contain", xalign=0.5, yalign=0.5, xsize=244, ysize=204)
 
 screen story_scene_8_formula_game():
     modal True

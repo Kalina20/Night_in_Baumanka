@@ -963,7 +963,7 @@ label story_scene_10:
     show k normal at Position(xpos=0.9, ypos=1.0)
     a "У меня плохое предчувствие..."
     $ renpy.pause(1.0, hard=True)
-    show kadira normal with Dissolve(2.0)
+    show kadira normal at Position(xpos=0.50, ypos=1.0) with Dissolve(2.0)
     $ renpy.pause(1.0, hard=True)
     show a surprise
     a "Это че за аниме?!"
@@ -1002,10 +1002,25 @@ label story_scene_10:
     ee "Пхахахахахах"
     show i happy
     p10 "Спасибо-спасибо! 🥰 Тогда подскажешь, в кого из них я могла влюбиться? 💖"
+    hide a
+    hide d
+    hide k
+    show kadira normal at Position(xpos=0.84, ypos=1.0)
+    show i think at Position(xpos=0.18, ypos=1.0)
     $ reset_story_scene_10_choice_game()
     call screen story_scene_10_choice_game
-    p10 "Значит, ты выбрал вариант [story_scene_10_choice]. Запомню."
+    if story_scene_10_choice == "3":
+        show kadira at Position(xpos=0.50, ypos=1.0)
+        p10 "Ты выбрал его... Значит, ты действительно меня понимаешь."
+        p10 "Пожалуй, это и есть мой счастливый финал."
+       
+        
+    else:
+        show kadira  at Position(xpos=0.50, ypos=1.0)
+        p10 "Нет... Похоже, ты совсем не угадал."
+        p10 "Значит, счастливого финала сегодня не будет."
     jump finish_cabinet_scene
+        
 
 # История Выхованца (хочет чтобы проверили гост)
 label story_scene_11:
