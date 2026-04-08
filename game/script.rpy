@@ -406,10 +406,10 @@ label vvedenie:
 
 label shkaf_transition:
     scene bg cabinet_with_beer
-    show i laugh at Position(xpos=0.1, ypos=1.0)
-    show a happy at Position(xpos=0.2, ypos=1.0)
-    show d happy at Position(xpos=0.3, ypos=1.0)
-    show k laugh at Position(xpos=0.4, ypos=1.0)
+    show i laugh at Position(xpos=0.12, ypos=1.0)
+    show a happy at Position(xpos=0.35, ypos=1.0)
+    show d happy at Position(xpos=0.6, ypos=1.0)
+    show k laugh at Position(xpos=0.85, ypos=1.0)
     d "Ну, парни, хряпнем!"
     i "Хряпнем!"
     a "Хряпнем!"
@@ -421,14 +421,25 @@ label shkaf_transition:
         zoom 0.7
         yoffset -100
     with dissolve
+    show i surprise at Position(xpos=0.1, ypos=1.0)
+    show a surprise at Position(xpos=0.2, ypos=1.0)
+    show d surprise at Position(xpos=0.8, ypos=1.0)
+    show k surprise at Position(xpos=0.9, ypos=1.0)
     $ renpy.pause()
     i "Не понял юмора..."
     a "Приехали..."
     hide empty_chest with dissolve
     hide shkaf_darken
+    show i angry at Position(xpos=0.12, ypos=1.0)
+    show a surprise at Position(xpos=0.35, ypos=1.0)
+    show d angry at Position(xpos=0.6, ypos=1.0)
+    show k sad at Position(xpos=0.85, ypos=1.0)
     i "Этот шкаф лет сто никто не открывал, как так вышло?!"
     d "Так не бывает, тут какие-то тюбики явно постарались!"
+    show i sad 
+    show k think
     k "Может, беский?"
+    show d think
     d "Может и он..."
     a "Эй, тут какая-то записка, кажется, с русскими буквами."
     show expression Solid("#0008") as shkaf_darken onlayer master
@@ -443,30 +454,34 @@ label shkaf_transition:
     $ renpy.pause()
     hide letter with dissolve
     hide shkaf_darken
+    show k angry
+    show d angry
     k "У нас в Саратове за такие приколы ебучку сносят!"
+    show i angry
     i "Кто бы это ни был, мы до него доберемся!"
     jump pre_base_room
 
 label pre_base_room:
     scene bg corridor
     play music "coridor.mp3"
-    show i normal at Position(xpos=0.1, ypos=1.0) with dissolve
-    show a normal at Position(xpos=0.3, ypos=1.0) with dissolve
+    show i normal at Position(xpos=0.12, ypos=1.0) with dissolve
+    show a angry at Position(xpos=0.35, ypos=1.0) with dissolve
     show d normal at Position(xpos=0.6, ypos=1.0) with dissolve
-    show k normal at Position(xpos=0.9, ypos=1.0) with dissolve
+    show k angry at Position(xpos=0.85, ypos=1.0) with dissolve
     a "Давайте быстрее найдем этого *****, а то пиво стынет!"
-    k "Как хорошо, что мы сделали приложение с картой ГЗ, и можно спокойно ориентироваться по этажу!"
+    d "Как хорошо, что мы сделали приложение с картой ГЗ, и можно спокойно ориентироваться по этажу!"
     i "Пойдем?"
+    show d map 2
     $ ui_unlocked = True
     d "Куда?" (advance=False)
 
 label base_room:
     scene bg corridor
     play music "coridor.mp3"
-    show i normal at Position(xpos=0.1, ypos=1.0) 
-    show a normal at Position(xpos=0.3, ypos=1.0) 
-    show d normal at Position(xpos=0.6, ypos=1.0) 
-    show k normal at Position(xpos=0.9, ypos=1.0) 
+    show i normal at Position(xpos=0.12, ypos=1.0) 
+    show a normal at Position(xpos=0.35, ypos=1.0) 
+    show d map 2 at Position(xpos=0.6, ypos=1.0) 
+    show k normal at Position(xpos=0.85, ypos=1.0) 
     $ ui_unlocked = True
     $ ensure_cabinet_scene_map()
     $ random_speaker = renpy.random.choice([i, a, d, k])
@@ -487,7 +502,7 @@ label show_beer(count, offset = 0.0):
 
         for index in range(beer_count + 1):
             if index == 0:
-                renpy.show("bubble", at_list=[Transform(xalign=0.5 + offset, yalign=0.6, xzoom=0.45, yzoom=0.6)], tag="bubble_i")
+                renpy.show("bubble", at_list=[Transform(xalign=0.5 + offset + offset/2, yalign=0.6, xzoom=0.45, yzoom=0.6)], tag="bubble_i")
             else:
                 xpos, ypos = positions[index-1]
                 renpy.show(
@@ -512,26 +527,40 @@ label story_scene_1:
     $ ui_unlocked = False
     scene expression Transform("images/doska.jpg", size=(1920, 1080))
     play music "Smeshariki_-_Meteority_OST_Kosmicheskaya_odisseya_(SkySound.cc).mp3"
-    show i normal at Position(xpos=0.1, ypos=1.0)
-    show a normal at Position(xpos=0.2, ypos=1.0)
+    show i normal at Position(xpos=0.1, ypos=1.0)    
     show d normal at Position(xpos=0.3, ypos=1.0)
-    show k normal at Position(xpos=0.4, ypos=1.0)
+    show k normal at Position(xpos=0.2, ypos=1.0)
+    show a normal at Position(xpos=0.4, ypos=1.0)
     $ renpy.pause(1.0, hard=True)
     show lichkov normal at Position(xpos=0.84, ypos=1.0)
     p1 "Ой, добрый день, ребята, как я рад вас видеть!"
+    show i happy    
+    show d happy 
+    show k happy
+    show a happy 
     k "(щепотом) Сейчас же час ночи, ну ладно..."
     e "Добрый день, Игорь Игоревич!"
     p1 "Еще раз поздравляю с успешной защитой!"
     p1 "Знаете, когда я шел в кабинет, я встретил очень умного человека, который передал мне ваши напитки."
+    show a surprise
     a "Кто это был, Игорь Игоревич?!"
     p1 "К сожалению, не могу вам сказать :("
     p1 "И напитки, к сожалению, просто так я вам отдать не могу. Нужно провести защиту лабораторной работы!"
-    # Грустный даня
+    show i sad    
+    show d sad 
+    show k sad
+    show a sad 
     d "Только не самый сложный предмет на кафедре..."
     p1 "Для защиты вам нужно выполнить небольшое теоретическое задание!"
     p1 "Кто пойдет отвечать?"
+    show i normal    
+    show d normal 
+    show k normal
+    show a normal 
     a "На цу е фа, парни?"
+    show d angry
     d "Нет я не пойду идите *****"
+    show d mad
     k "Игорь Игоревич, будет отвечать Даниил Перекосов!"
     # Даня злой
     p1 "Ну что, Даниил, приступим?)"
@@ -543,6 +572,7 @@ label story_scene_1:
         e "Спасибо, Игорь Игоревич, всего доброго!"
         $ success_flag = True
         call show_beer(2)
+        $ renpy.pause()
     else:
         p1 "Даниил, к сожалению, не большой одной попытки в день("
         d "Игорь Игоревич, может, есть задание по прологу?"
@@ -580,6 +610,7 @@ label story_scene_2:
         call show_beer(2)
         d "Вам спасибо, Вячеслав Михайлович!"
         $ success_flag = True
+        $ renpy.pause()
     elif failed_story_scene_2_search:
         p2 "Не нашли... опять на кафедре будут ругаться. Ну, ребятки, что-то в сон меня потянуло, 
         а ваши напитки помогут мне лучше заснуть. А вы идите,
@@ -625,6 +656,7 @@ label story_scene_3:
     call show_beer(4, 0.3)
     $ bottle_plus = 4
     $ success_flag = True
+    $ renpy.pause()
     jump finish_cabinet_scene
 
 # История Брызгалова (приседания)
@@ -670,6 +702,7 @@ label story_scene_4:
         i "Ура!"
         call show_beer(2)
         $ success_flag = True
+        $ renpy.pause()
     else:
         p4 "Эх, не хватило совсем чуть-чуть. После такой защиты простительно, но в качестве домашнего задания
         даю вам 100 км на велосипеде по измайловскому парку, и чтоб потом дневник сдали!"
