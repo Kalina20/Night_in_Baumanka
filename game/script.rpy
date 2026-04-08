@@ -405,7 +405,7 @@ label vvedenie:
     jump shkaf_transition
 
 label shkaf_transition:
-    scene bg cabinet_with_beer
+    scene expression Transform("images/rooms/kaf.JPG", size=(1920, 1080))
     show i laugh at Position(xpos=0.12, ypos=1.0)
     show a happy at Position(xpos=0.35, ypos=1.0)
     show d happy at Position(xpos=0.6, ypos=1.0)
@@ -462,7 +462,7 @@ label shkaf_transition:
     jump pre_base_room
 
 label pre_base_room:
-    scene bg corridor
+    scene expression Transform("images/rooms/koridor.JPG", size=(1920, 1080))
     play music "coridor.mp3"
     show i normal at Position(xpos=0.12, ypos=1.0) with dissolve
     show a angry at Position(xpos=0.35, ypos=1.0) with dissolve
@@ -476,7 +476,7 @@ label pre_base_room:
     d "Куда?" (advance=False)
 
 label base_room:
-    scene bg corridor
+    scene expression Transform("images/rooms/koridor.JPG", size=(1920, 1080))
     play music "coridor.mp3"
     show i normal at Position(xpos=0.12, ypos=1.0) 
     show a normal at Position(xpos=0.35, ypos=1.0) 
@@ -525,7 +525,7 @@ label finish_cabinet_scene:
 # История Лычкова (поздравляет с успешной защитой)
 label story_scene_1:
     $ ui_unlocked = False
-    scene expression Transform("images/doska.jpg", size=(1920, 1080))
+    scene expression Transform("images/rooms/Igor_igorevic.JPG", size=(1920, 1080))
     play music "Smeshariki_-_Meteority_OST_Kosmicheskaya_odisseya_(SkySound.cc).mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)    
     show d normal at Position(xpos=0.3, ypos=1.0)
@@ -644,7 +644,7 @@ label story_scene_2:
 # История Семенцова (чинит проводку)
 label story_scene_3:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/Igor_igorevic.JPG", size=(1920, 1080))
     play music "semens.mp3"
     show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.25, ypos=1.0)
@@ -772,7 +772,7 @@ label story_scene_4:
 # История Адамовой (желает доминировать)
 label story_scene_5:
     $ ui_unlocked = False
-    scene bg room
+    scene expression Transform("images/rooms/adam_1.JPG", size=(1920, 1080))
     show i normal at Position(xpos=0.1, ypos=1.0)
     show a normal at Position(xpos=0.2, ypos=1.0)
     show d normal at Position(xpos=0.3, ypos=1.0)
@@ -781,18 +781,20 @@ label story_scene_5:
     i "Ой, а чего это тут свет выключен..."
     k "Кажется, я нашел выключатель, щас включу..."
     pq "Ну здравствуйте, мальчики"
-    hide shkaf_darken
-    show i surprise
-    show a surprise
-    show d mad
-    show k surprise
+    scene expression Transform("images/rooms/adam_2.JPG", size=(1920, 1080))
     show adamova normal at Position(xpos=0.7, ypos=1.0)
+    hide shkaf_darken
+    show i surprise at Position(xpos=0.1, ypos=1.0)
+    show a surprise at Position(xpos=0.2, ypos=1.0)
+    show d mad at Position(xpos=0.3, ypos=1.0)
+    show k surprise at Position(xpos=0.4, ypos=1.0)
     e "Твою ма..."
     p5 "Я очень ждала вас! У меня есть кое-что ваше, но перед этим придется пройти мое жаркое испытан..."
     d "По съебам, мужики, оно того не стоит!"
     # Здесь отдельная сцена в коридоре
     hide adamova normal
     scene bg corridor
+    scene expression Transform("images/rooms/adam_3.JPG", size=(1920, 1080))
     show i sad at Position(xpos=0.12, ypos=1.0)
     show a sad at Position(xpos=0.35, ypos=1.0)
     show d sad at Position(xpos=0.7, ypos=1.0)
@@ -998,7 +1000,7 @@ screen story_scene_8_formula_game():
             color "#ffffff"
             outlines [(2, "#000000", 0, 0)]
 
-        text "Лови только правильные формулы. Управление: A/D или стрелки.":
+        text "Лови только правильные формулы. Управление: стрелочки вправо и влево.":
             xalign 0.5
             ypos 60
             size 24
