@@ -52,7 +52,34 @@ default story_scene_4_is_down = False
 default story_scene_4_minigame_won = False
 default story_scene_4_minigame_lost = False
 
+define credits_entries = [
+    {
+        "title": "Night in Baumanka",
+        "subtitle": "Визуальная новелла",
+        "text": "Спасибо вам за прохождение!",
+        "image": "images/IMG_7369.JPG",
+    },
+    {
+        "title": "Команда",
+        "subtitle": "Два придурка",
+        "text": "Сценарист: Калиниченко Алексей и Писарев Иван\nПрограммист: Писарев Иван и Алексей Калиниченко\nХудожник: Калиниченко Алексей и Писарев Иван\nГейдизайнер: Писарев Иван и Алексей Калиниченко",
+        "image": "images/IMG_7632.JPG",
+    },
+    {
+        "title": "Особые благодарности",
+        "subtitle": "Двум придуркам",
+        "text": "Перекосов Даниил и Горшков Константин",
+        "image": "images/IMG_8454 (2).JPG",
+    },
+]
+
 init python:
+    def credits_entry_image(entry):
+        image_path = entry.get("image")
+        if image_path and renpy.loadable(image_path):
+            return image_path
+        return None
+
     def ensure_cabinet_scene_map():
         if cabinet_scene_map:
             return
@@ -431,6 +458,7 @@ label shkaf_transition:
     stop music fadeout 1.0
     i "Не понял юмора..."
     a "Приехали..."
+    play music "DJ_FON_Muzyka_dlya_fona_-_Grustnaya_muzyka_bez_slov_dlya_fona_(SkySound.cc).mp3"
     hide empty_chest with dissolve
     hide shkaf_darken
     show i angry at Position(xpos=0.12, ypos=1.0)
@@ -527,7 +555,7 @@ label finish_cabinet_scene:
         jump final
     else:
         # ИСПРАААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААВИТЬ
-        jump final
+        jump base_room
 
 # История Лычкова (ГОТОВО)
 label story_scene_1:
@@ -568,6 +596,7 @@ label story_scene_1:
     show d angry
     d "Нет я не пойду идите *****"
     show d mad
+    show k laugh
     k "Игорь Игоревич, будет отвечать Даниил Перекосов!"
     p1 "Ну что, Даниил, приступим?)"
     $ reset_story_scene_1_match_game()
@@ -726,11 +755,11 @@ label story_scene_4:
     show k happy
     i "Спортсмены в строю! А что вы тут делаете?"
     p4 "Да я тут перед сном решил прокатиться на велосипеде, и не заметил, как доехал до главного здания!
-    Решил передохнуть перед обратной дорогой, все-таки уже 100 киллометров проехал!"
+    Решил передохнуть перед обратной дорогой, все-таки уже 100 километров проехал!"
     show d sad
     d "Я за прошлый год меньше пешком прошел..."
     show d happy
-    p4 "И вот, пока отдыхал, студентку мою бувшую встретил! Сейчас вроде как у нас работает. Попросил у нее водички, а она мне
+    p4 "И вот, пока отдыхал, студентку мою бывшую встретил! Сейчас вроде как у нас работает. Попросил у нее водички, а она мне
     помимо воды еще значит напитки дает, и сказала, что за ними скоро придут."
     show i surprise
     i "Ой, так это ж наше!"
@@ -762,7 +791,8 @@ label story_scene_4:
         p4 "Ой, чуть не забыл! Да, старость не радость, одиннадцатый десяток пошел все-таки... Вот, держите, и помните - 
         в алкоголе всегда нужно знать меру, иначе можно выпить меньше!"
         i "Ура!"
-        call show_beer(2)
+        call show_beer(3, -0.35)
+        $ bottle_plus = 3
         $ success_flag = True
         $ renpy.pause()
     else:
@@ -1101,7 +1131,8 @@ label story_scene_10:
     call screen story_scene_8_chain_game
     if story_scene_8_chain_success:
         p11 "ЛАДНО, ЗАСЧИТЫВАЮ! И ЗАБЕРИТЕ ОТСЮДА СВОИ БУТЫЛКИ, У НИХ НА ЭТИКЕТКАХ ШРИФТ НЕ ПО ГОСТУ!"
-        call show_beer(2)
+        call show_beer(3)
+        $ bottle_plus = 3
         $ success_flag = True
         $ renpy.pause() 
     else:
@@ -1156,11 +1187,13 @@ label final:
     hide k
     with Dissolve(2.0)  
     scene expression Transform("images/rooms/kaf.JPG", size=(1920, 1080))
+    play music "Linkin_Park_-_What_I_ve_Done_Instrumental_(SkySound.cc).mp3"
     show i normal at Position(xpos=0.10, ypos=1.0) 
     show a normal at Position(xpos=0.25, ypos=1.0) 
     show d normal at Position(xpos=0.75, ypos=1.0) 
     show k normal at Position(xpos=0.90, ypos=1.0)
     with Dissolve (2.0)
+    $ renpy.pause(5.0, hard=True)
     pq "Что ж, кажется, это приключение подходит к концу..."
     show tishka normal with Dissolve(2.0)
         # zoom 0.9
@@ -1176,8 +1209,218 @@ label final:
     show a normal
     show d normal
     show k normal
-    p9 "Только тогда он казался бесконечным, а сейчас замкнутым."
-    jump finish_cabinet_scene
+    p9 "Должна сказать, ваш план был хорош..."
+    show i sad
+    show a think
+    show d sad
+    show k sad
+    p9 "...Если бы вы только не засунули ваши напитки в мой кафедральный шкаф."
+    show i normal
+    show a normal
+    show d normal
+    show k normal
+    p9 "Я просто не могла не оценить такую наглость, и решила устроить вам финальную лабораторную работу!"
+    p9 "А теперь пришло время защиты! Всё собрали?"
+    # ИСПРАААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААААВИТЬ
+    # $ bottle_counter = 15
+    if bottle_counter >= 16:
+        jump final_good
+    else:
+        jump final_bad
+    # call credits_scene
+    # return
+
+label show_beer_final():    
+    python:
+        positions = [(0.03, 0.55), (0.07, 0.55),
+(0.11, 0.55), (0.15, 0.55), (0.19, 0.55), (0.23, 0.55),
+(0.27, 0.55), (0.31, 0.55), (0.35, 0.55), (0.39, 0.55),
+(0.43, 0.55), (0.47, 0.55), (0.51, 0.55), (0.55, 0.55),
+(0.59, 0.55), (0.63, 0.55), (0.67, 0.55), (0.71, 0.55),
+(0.75, 0.55), (0.79, 0.55), (0.83, 0.55), (0.87, 0.55), (0.91, 0.55), (0.95, 0.55),]
+        for index in range(bottle_counter):            
+            xpos, ypos = positions[index]
+            renpy.show(
+                "beer",
+                at_list=[Transform(xalign=xpos, yalign=ypos, zoom=0.15)],
+                tag="beer_%d" % index,
+            )
+            renpy.with_statement(Dissolve(0.5))        
+    return
+
+label final_good:
+    show i happy
+    show a happy
+    show d happy
+    show k happy
+    e "Всё, Елизавета Алексеевна!"
+    p9 "Ха, все-таки не зря я вас не отчислила! Лабораторная работа принимается!"
+    e "Ура!"
+    p9 "И, так как вы уже защитили свои дипломы, то ,технически, вы больше не студенты..."
+    p9 "А значит, можете спокойно праздновать у нас на кафедре, не боясь отчисления!"
+    e "УРА!"
+    p9 "А я позову коллег, и мы пропустим пару стопочек на кафедре ИУ4, Семенцов всех приглашает! Счастливо!"
+    e "До свидания, Елизавета Алексеевна!"
+    stop music
+    hide tishka normal
+    with Dissolve(2.0) 
+    $ renpy.pause(2.0, hard=True)
+    show i laugh at Position(xpos=0.15, ypos=1.0)
+    show a at Position(xpos=0.35, ypos=1.0)
+    show d at Position(xpos=0.65, ypos=1.0) 
+    show k at Position(xpos=0.85, ypos=1.0) 
+    i "Ну, теперь-то мы хряпнем?"
+    play music "lil_krystalll_-_Air_Force_(SkySound.cc).mp3"
+    a "Открывай уже!"
+    show d mad
+    d "Я уже больше не могу терпеть!"
+    show d laugh
+    show k laugh
+    k "А у меня еще водка в портфеле!"
+    call show_beer_final()
+    e "ЗА НАС, ЗА {color=#ff5555}РЕМОНТ{/color}!"
+    call credits_scene
+
+label final_bad:
+    d "Нуууу, не совсем..."
+    show i sad
+    show a sad
+    show d sad
+    show k sad 
+    p9 "И это всё? Ребят, да тут даже на тройку не тянет..."
+    p9 "Боюсь, с такими неутешительными результатами зачесть лабораторную работу я вам не могу."
+    p9 "А без лабораторной работы я не могу вам разрешить остаться на кафедре!"
+    d "Ну, мы пойдем тогда..."
+    p9 "Бывайте!"
+    hide i
+    hide a
+    hide d
+    hide k
+    with Dissolve(2.0)     
+    scene expression Transform("images/IMG_4434.JPG", size=(1920, 1080))
+    play music "DJ_FON_Muzyka_dlya_fona_-_Grustnaya_muzyka_bez_slov_dlya_fona_(SkySound.cc).mp3"
+    show i sad at Position(xpos=0.15, ypos=1.0)
+    show a sad at Position(xpos=0.35, ypos=1.0)
+    show d sad at Position(xpos=0.65, ypos=1.0) 
+    show k sad at Position(xpos=0.85, ypos=1.0) 
+    with Dissolve(2.0)
+    a "Ну, в Свободу?"
+    d "Поехли..."
+    i "Это провал, господа..."
+    k "Блять я заплакал..."
+    call credits_scene
+
+
+label credits_scene:
+    scene black
+    with Dissolve(5.0)
+    # stop music fadeout 1.0
+    call screen credits_screen
+    return
+
+transform credits_fadein:
+    alpha 0.0
+    linear 2.0 alpha 1.0
+
+screen credits_screen():
+    tag credits
+    modal True
+
+    fixed at credits_fadein:
+        add Solid("#0c1018")
+
+        frame:
+            xpos 0
+            ypos 0
+            xsize 1920
+            ysize 1080
+            background None
+            padding (60, 40)
+
+            vbox:
+                spacing 24
+                xfill True
+
+                hbox:
+                    xfill True
+
+                    vbox:
+                        spacing 6
+
+                        text "КОНЕЦ":
+                            size 56
+                            color "#f6f0dd"
+
+                        text "":
+                            size 24
+                            color "#c8d2e0"
+
+                    textbutton "Закрыть":
+                        xalign 1.0
+                        action MainMenu()
+
+                viewport:
+                    mousewheel True
+                    draggable True
+                    scrollbars "vertical"
+                    side_yfill True
+                    xsize 1800
+                    ysize 860
+
+                    vbox:
+                        spacing 30
+                        xfill True
+
+                        null height 10
+
+                        for entry in credits_entries:
+                            frame:
+                                xfill True
+                                background Solid("#172030dd")
+                                padding (28, 28)
+
+                                hbox:
+                                    spacing 28
+                                    xfill True
+
+                                    if credits_entry_image(entry):
+                                        add Transform(
+                                            credits_entry_image(entry),
+                                            fit="contain",
+                                            xsize=520,
+                                            ysize=290,
+                                        )
+                                    else:
+                                        frame:
+                                            xsize 520
+                                            ysize 290
+                                            background Solid("#243147")
+
+                                            text "IMAGE\n520 x 290":
+                                                align (0.5, 0.5)
+                                                text_align 0.5
+                                                size 32
+                                                color "#f6f0dd"
+
+                                    vbox:
+                                        spacing 12
+                                        xmaximum 1120
+
+                                        text "[entry['title']]":
+                                            size 42
+                                            color "#f6f0dd"
+
+                                        if entry.get("subtitle"):
+                                            text "[entry['subtitle']]":
+                                                size 24
+                                                color "#86b5ff"
+
+                                        if entry.get("text"):
+                                            text "[entry['text']]":
+                                                size 28
+                                                color "#d7deea"
+
+                        null height 40
 
 screen story_scene_8_formula_game():
     modal True
