@@ -449,6 +449,7 @@ screen main_menu():
 style main_menu_frame is empty
 style main_menu_vbox is vbox
 style main_menu_text is gui_text
+
 style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
 
