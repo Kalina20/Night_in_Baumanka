@@ -401,6 +401,12 @@ init python:
 
 label start:
     $ ensure_cabinet_scene_map()
+    scene black
+    show text "Основано на реальных событиях" at truecenter
+    with dissolve
+    pause 2.0
+    hide text
+    with dissolve
     jump vvedenie
 
 label vvedenie:
@@ -906,6 +912,7 @@ label story_scene_7:
     show a think at Position(xpos=0.2, ypos=1.0)    
     show k normal at Position(xpos=0.4, ypos=1.0)
     a "Чем тут воняет?.."
+    play sound "audio/pudge_ult_half.mp3"
     $ renpy.pause(1.0, hard=True)
     show leviev normal at Position(xpos=0.7, ypos=1.0) with Dissolve(2.0) 
     $ renpy.pause(1.0, hard=True)
@@ -921,6 +928,7 @@ label story_scene_7:
     show k sad
     a "Видно уже не наше..."
     p7 "Ох, Алексей, ваша работа в свое время произвела на меня впечатление! Значит, в этот раз будем строить ракету!"
+    
     p7 "Ну, Алексей, подходите на защиту!"
     show k surprise
     k "(шепотом) Мужики, я кажется что-то вижу..."
