@@ -98,7 +98,7 @@ init python:
             "story_scene_10",
             "story_scene_11",
         ]
-        # renpy.random.shuffle(scene_labels) пока закометим для отладки
+        renpy.random.shuffle(scene_labels)
         store.cabinet_scene_map = dict(zip(cabinets, scene_labels))
 
     def reset_story_scene_4_minigame():
@@ -707,7 +707,7 @@ label story_scene_3:
     Остался только мини-реактор!"
     p3 "Но, ребята, времени мало, поэтому действуем быстро! Кто пойдет отвечать?"
     show a happy
-    a "Давате я что ли."
+    a "Давайте я что ли."
     p3 "Алексей, мы и так виделись целое лето на втором курсе, дайте другим ребятам проявить себя!"
     show a sad
     p3 "Но учтите, задание будет не простым, курсовую работу все-таки делаем!"
